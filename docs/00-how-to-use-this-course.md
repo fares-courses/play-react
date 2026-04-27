@@ -2,6 +2,12 @@
 
 You're a Rails API developer learning advanced React. You won't memorize syntax — you'll write code with an AI agent. So this course teaches you what to **understand**, what to **ask for**, and what to **verify**. Memorization is not the goal.
 
+## TypeScript throughout
+
+This course uses **TypeScript** for every code example, every lesson, and every agent prompt — no plain JavaScript anywhere. TypeScript is JavaScript with a type-checker bolted on: you annotate what shape your data has, and a compile step catches mismatches before the code runs. It's the dominant choice in serious React codebases today (Next.js, Remix, most production apps default to it), and it pairs especially well with an agent-driven workflow — type errors give the agent immediate feedback when it generates something wrong, and they give *you* a safety net for catching when the agent confidently generated nonsense.
+
+You don't need TS experience going in. Doc 02 opens with a short "TypeScript for backend devs" primer covering the 20% of TS you'll actually use (type aliases, interfaces, generics, unions, utility types). New TS syntax is defined inline as it first appears, the same way frontend terms are. Doc 01 is deliberately concept-only with minimal code so the mental model lands before TS gets in the way; from doc 02 onward, every file is `.tsx` with proper types.
+
 ## The shape of each doc
 
 Every doc (01–22) follows the same structure. Read it in order:
