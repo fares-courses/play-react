@@ -1,5 +1,7 @@
 # 00 — How to use this course
 
+> **First time here?** Read [-01-intro-to-frontend.md](./-01-intro-to-frontend.md) before this file. It covers the browser environment, the full FE jargon glossary, the minimum HTML/CSS you need, and how to work with an AI agent on frontend code. This file assumes you've read it.
+
 You're a Rails API developer learning advanced React. You won't memorize syntax — you'll write code with an AI agent. So this course teaches you what to **understand**, what to **ask for**, and what to **verify**. Memorization is not the goal.
 
 ## TypeScript throughout
@@ -86,7 +88,10 @@ src/lessons/
 
 Each `src/lessons/NN-*/` folder has its own `index.tsx` that you mount from `src/App.tsx` while you're on that lesson. The agent will set this up; you don't need to manage it manually.
 
-## Course map (22 docs)
+## Course map (22 docs + intro)
+
+**Before you start**
+- 00-intro — Frontend for the backend developer (browser, HTML, CSS, jargon, AI workflow)
 
 **Foundations**
 - 01 — Mental model & the React runtime
