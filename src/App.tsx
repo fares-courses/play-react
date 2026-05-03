@@ -3,6 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import { UserList } from './lessons/02-components/UserList'
+
+const DEMO_USERS = [
+  { id: 1, name: 'Alice Chen',    role: 'Admin'   },
+  { id: 2, name: 'Bob Martínez',  role: 'Manager' },
+  { id: 3, name: 'Carol Okafor',  role: 'Lead'    },
+  { id: 4, name: 'David Kim',     role: 'Member'  },
+]
 
 function App() {
   const [count, setCount] = useState(0)
@@ -27,6 +35,13 @@ function App() {
         >
           Count is {count}
         </button>
+      </section>
+
+      <div className="ticks"></div>
+
+      <section style={{ padding: '24px', maxWidth: '480px', margin: '0 auto' }}>
+        <h2 style={{ marginBottom: '16px' }}>Lesson 02 — Components, JSX &amp; Props</h2>
+        <UserList users={DEMO_USERS} />
       </section>
 
       <div className="ticks"></div>
