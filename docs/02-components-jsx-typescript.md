@@ -155,6 +155,9 @@ If `isLoggedIn` is true, render the button. If false, render nothing (`false` is
 ```
 The `key` prop is required for lists — it's how React identifies which item is which across re-renders. Use a stable unique ID (typically the database ID). Never use the array index as a key unless the list is static and never reordered (we'll cover *why* in doc 04).
 
+`key` is a built-in React prop — you don't declare it in your Props type.
+
+
 ## Children: components nesting components
 
 Components can take other JSX as a special prop called `children`. This is how composition works.
@@ -184,6 +187,8 @@ function Card({ title, children }: CardProps) {
 `React.ReactNode` is the type for "anything React can render" — strings, numbers, JSX, arrays of those, `null`. Use it for `children` 99% of the time.
 
 This is how UI gets composed: small components take `children` and wrap them. A real app's component tree is mostly nesting like this.
+
+You don't pass children as a normal attribute like title. Instead, you place the content
 
 ## Typing event handlers
 
@@ -267,7 +272,7 @@ and one footgun. Stop after 5 questions.
 
 - **Forgetting `key` on list items.** React warns you in the console, but it's easy to ignore. Use a stable unique ID. Array index works only if the list never reorders, never gets items inserted/removed in the middle, and never filters. In practice, just always use a real ID.
 - **Returning multiple sibling elements without a wrapper.** A component must return one root. If you don't want an extra `<div>`, use a Fragment: `<>...</>`.
-- **Conditional rendering with numbers.** `{count && <Foo />}` — if `count` is `0`, this renders the literal `0` on the page (because `0` is falsy in JS, but React renders numbers, not skips them like `false`). Use `{count > 0 && <Foo />}` or `{count ? <Foo /> : null}`.
+- **Conditional rendering with numbers.** `{count && <Foo />}` — if `count` is `0`, this renders the literal `0` on the page (because `0` is falsy in JS, but React renders numbers, not skips them like `false`). Use `{count > 0 && <Foo />}` or `{count ? <Foo /> : null}`. (Different Behavior than Ruby)
 - **Mutating props.** Props are read-only. If you need to "modify" something a parent gave you, ask the parent for an update (pass a callback prop). Treat props like immutable inputs to a pure function — because that's what they are.
 - **Reaching for `any` when types feel hard.** `any` turns off type checking for that value and quietly poisons everything it touches. If you don't know the type, use `unknown` (forces you to narrow before using it) or ask the agent to type it properly. The whole point of TS is to catch the agent's mistakes — `any` defeats that.
 - **Inline object/array props recreate on every render.** `<Foo style={{ color: "red" }} />` creates a new object every render. Usually fine, but it can break memoization (doc 08). Worth knowing exists; don't preemptively optimize.
