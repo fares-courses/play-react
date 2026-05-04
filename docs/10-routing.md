@@ -190,7 +190,7 @@ const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 </Routes>
 ```
 
-`lazy()` tells the bundler to put this component's code in a separate chunk that downloads only when the route is visited. `<Suspense fallback>` is what shows while the chunk loads. (Doc 12 covers Suspense properly.)
+`lazy()` tells the bundler to put this component's code in a separate chunk that downloads only when the route is visited. `<Suspense fallback>` is what shows while the chunk loads. (Doc 13 covers Suspense properly.)
 
 For an app with many routes, lazy-loading the heavy/uncommon ones is the single biggest perf win you can do.
 
@@ -198,7 +198,7 @@ For an app with many routes, lazy-loading the heavy/uncommon ones is the single 
 
 ```tsx
 function RequireAuth({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth(); // from your AuthContext (doc 17)
+  const { user } = useAuth(); // from your AuthContext (doc 18)
   const location = useLocation();
   if (!user) return <Navigate to="/login" state={{ from: location }} replace />;
   return <>{children}</>;
@@ -211,7 +211,7 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
 </Routes>
 ```
 
-A wrapper component checks auth and either renders children or redirects. The `state={{ from }}` lets the login page redirect back after a successful login. We'll wire the actual auth context up in doc 17.
+A wrapper component checks auth and either renders children or redirects. The `state={{ from }}` lets the login page redirect back after a successful login. We'll wire the actual auth context up in doc 18.
 
 ## How to use this doc with an agent
 
@@ -276,7 +276,7 @@ Tell me which routes should be lazy-loaded and why.
 - **Hardcoding paths as strings everywhere.** When you rename a route, you find them all by grep. Centralize route paths in a constants file.
 - **Lazy-loading every route.** Each lazy chunk is a network request. Pages used immediately should not be lazy. Lazy-load less-common pages.
 - **Auth check in the page component instead of a guard.** Page renders briefly, then redirects — flicker. Guard at the route level.
-- **Server-side routing assumptions.** SPAs need server config so `/users/42` doesn't 404 on refresh. With Vite + a static host, configure SPA fallback (see doc 16).
+- **Server-side routing assumptions.** SPAs need server config so `/users/42` doesn't 404 on refresh. With Vite + a static host, configure SPA fallback (see doc 17).
 
 ## Ask-the-agent cheatsheet
 
@@ -287,6 +287,6 @@ Tell me which routes should be lazy-loaded and why.
 
 ## Where this goes next
 
-- **Doc 10** — Data fetching, often combined with route params (`/users/:id` triggers a fetch for user `:id`).
-- **Doc 12** — Suspense, the same primitive lazy() uses, applied to data loading.
-- **Doc 17** — Auth flows; we'll wire up the route guard with a real AuthContext.
+- **Doc 11** — Data fetching, often combined with route params (`/users/:id` triggers a fetch for user `:id`).
+- **Doc 13** — Suspense, the same primitive lazy() uses, applied to data loading.
+- **Doc 18** — Auth flows; we'll wire up the route guard with a real AuthContext.

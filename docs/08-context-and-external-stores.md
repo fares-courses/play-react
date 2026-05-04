@@ -149,7 +149,7 @@ When to reach for Zustand (or similar) over Context:
 - You want to use the state outside of React (e.g., from utility functions).
 
 When *not* to use a store:
-- Server data — that goes in TanStack Query (doc 10), not a client store.
+- Server data — that goes in TanStack Query (doc 11), not a client store.
 - Tiny piece of UI state for a single component — that's `useState`.
 
 ## Other store options (worth knowing exist)
@@ -246,6 +246,6 @@ store). Explain your splitting strategy.
 
 ## Where this goes next
 
-- **Doc 08** — Performance and re-renders. Where you'll learn the profiler and understand what "unnecessary re-render" actually costs.
-- **Doc 10** — TanStack Query, the right home for server state.
-- **Doc 17** — Auth flows, where the "current user context" pattern shows up properly.
+- **Doc 09** — Performance and re-renders. Where you'll learn the profiler and understand what "unnecessary re-render" actually costs.
+- **Doc 11** — TanStack Query, the right home for server state.
+- **Doc 18** — Auth flows, where the "current user context" pattern shows up properly.

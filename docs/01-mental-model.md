@@ -48,7 +48,7 @@ In old-school JavaScript, if a counter went from 5 to 6, you'd write code like "
 
 React is **declarative**: you describe what the UI should look like for the current state ("the counter shows 6"), and React figures out the minimum changes needed to make the real DOM match. The diffing algorithm React uses to compute those minimum changes is called **reconciliation**. You'll hear that word a lot — that's all it means: "React comparing the new description of the UI against the previous one to figure out what actually changed."
 
-You'll basically never write code that pokes at the DOM directly. If you find yourself wanting to, you're at the wrong layer — and there's an escape hatch for it (refs, doc 06) but you reach for it rarely.
+You'll basically never write code that pokes at the DOM directly. If you find yourself wanting to, you're at the wrong layer — and there's an escape hatch for it (refs, doc 07) but you reach for it rarely.
 
 ### 3. State changes are the only thing that triggers a re-render
 
@@ -94,7 +94,7 @@ In a React component, the **function body itself must be pure**: same inputs (pr
 
 Why? Because React might call your function many times, sometimes speculatively (it actually does in some modes — calls your function twice in development just to catch impurity bugs). If your function pushes a job to a queue every time it runs, you'll push duplicate jobs you didn't intend.
 
-Side effects don't disappear — they go in a separate place called an **effect** (`useEffect`, doc 05). Effects run *after* React has finished rendering and updating the DOM. That's where your "fetch data, set up a subscription, log something" code lives. The render function itself is for *describing* the UI; effects are for *causing things to happen*.
+Side effects don't disappear — they go in a separate place called an **effect** (`useEffect`, doc 06). Effects run *after* React has finished rendering and updating the DOM. That's where your "fetch data, set up a subscription, log something" code lives. The render function itself is for *describing* the UI; effects are for *causing things to happen*.
 
 If this feels like a strange constraint, the loosest analogy is: imagine your controller action could be re-invoked dozens of times per request, and only the *last* return value mattered. You'd want the action body to be safe to call many times — so you'd move "create a record," "send an email," "enqueue a job" out of the action body and into an `after_response` callback. That's what effects are.
 
@@ -156,8 +156,8 @@ The bugs that bite even people who've used React for a year.
 
 - **Mutating state directly.** `state.items.push(x)` followed by `setState(state)` will *sometimes* re-render and *sometimes* not. Always create new objects/arrays: `setState({ ...state, items: [...state.items, x] })`. The `...` is JavaScript's spread operator — it shallow-copies the existing fields. We're creating a new object so React sees a new reference and knows something changed.
 - **Reading state right after setting it.** `setCount(5); console.log(count);` logs the *old* count, not 5. State updates are asynchronous — they're scheduled, not applied immediately. The new value is available in the *next* render. Coming from imperative backend code this feels broken; it isn't, it's by design (for batching multiple updates together).
-- **Doing I/O in the render body.** Calling `fetch('/api/users')` inside the component function will run on every render. If the response triggers a state update, you have an infinite loop. Network calls go in effects (doc 05) or in event handlers (doc 04).
-- **Assuming components only re-render when "their data changed."** A parent re-rendering will re-render its children by default, even if their props are identical. That's almost always fine — re-renders are cheap. Don't optimize until you've measured (doc 08).
+- **Doing I/O in the render body.** Calling `fetch('/api/users')` inside the component function will run on every render. If the response triggers a state update, you have an infinite loop. Network calls go in effects (doc 06) or in event handlers (doc 05).
+- **Assuming components only re-render when "their data changed."** A parent re-rendering will re-render its children by default, even if their props are identical. That's almost always fine — re-renders are cheap. Don't optimize until you've measured (doc 09).
 - **Treating JSX as HTML.** It's not. It's JavaScript that compiles to function calls. `class` is `className`, `for` is `htmlFor`, attributes are camelCase (`onclick` → `onClick`), and `{...}` lets you embed any JS expression. When something looks weird, remember: it's JS, not HTML.
 
 ## Ask-the-agent cheatsheet
@@ -172,5 +172,6 @@ These are prompt phrasings you'll reuse in real React work — not syntax to mem
 ## Where this goes next
 
 - **Doc 02** — Components, JSX, and TypeScript types for props. So the agent has guardrails when generating code (TypeScript = compile-time type checks for JavaScript; we'll explain).
-- **Doc 04** — Returns to state with `useState` and `useReducer` in depth.
-- **Doc 05** — Effects. This is where the mental model in this doc gets stress-tested. Most "why is React weird" questions resolve once you nail effects.
+- **Doc 04** — Hooks: the concept. The rules and mental model behind every hook (since `useState` already showed up here).
+- **Doc 05** — Returns to state with `useState` and `useReducer` in depth.
+- **Doc 06** — Effects. This is where the mental model in this doc gets stress-tested. Most "why is React weird" questions resolve once you nail effects.

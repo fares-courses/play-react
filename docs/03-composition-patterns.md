@@ -4,14 +4,20 @@
 
 You're learning the patterns that let small components combine into bigger ones without becoming a tangled mess. In a backend, you compose behavior with modules, mixins, service objects, and inheritance. In React, you compose UI almost exclusively through **nesting components** — but there are several distinct patterns for *how* you nest, and picking the right one is the difference between a clean codebase and one where every component takes 30 props.
 
-Why this matters now: as soon as your app has more than a handful of components, you'll hit the question "should this be one big component with options, or several small components that fit together?" The answer is almost always the second — but only if you know the patterns to make it ergonomic.
+Why this matters now: as soon as your app has more than a handful of components, you'll hit the question "should this be one big component with options, or several small components that fit together?" The answer is almost always the second — but only if you know the patterns to make it ergonomic (Relating to or designed for efficiency and comfort in the working environment.).
 
 ### A few terms first
 
 - **Prop drilling**: passing a prop down through many layers of components just so a deep child can use it. Annoying, makes refactoring hard. Composition patterns reduce this.
 - **Slot**: a "hole" in a component where the caller plugs something in. In React, slots are usually just props that accept JSX.
 - **Render prop**: a prop that is *itself* a function returning JSX. The component calls it during rendering and inserts the result.
+  - In a normal component, the state is locked inside. With a Render Prop, the component says, "Here is my state and the functions to change it. You (the child) take them and do whatever you want with them."
 - **Compound component**: a set of components that are designed to be used together (like `<Tabs>` containing `<TabList>` containing `<Tab>`). They share state implicitly.
+
+### Notes
+- Is Render prop still used today?
+  - You will see this pattern a lot in older React code and in famous libraries like Formik (for forms) or React Router.
+  - However, in modern React (post-2019), many people have moved from Render Props to Custom Hooks.
 
 ## Mental model
 
@@ -76,7 +82,7 @@ function Layout({ header, sidebar, children }: LayoutProps) {
 
 A set of components designed to work as a group. Classic examples: `<Tabs>` / `<Tab>` / `<TabPanel>`, `<Select>` / `<Option>`, `<Form>` / `<Field>`.
 
-The "compound" part: the outer component holds shared state, and the inner components read from it implicitly (usually via Context — doc 07). The caller composes them like HTML tags but they cooperate behind the scenes.
+The "compound" part: the outer component holds shared state, and the inner components read from it implicitly (usually via Context — doc 08). The caller composes them like HTML tags but they cooperate behind the scenes.
 
 ```tsx
 <Tabs defaultTab="overview">
@@ -94,7 +100,7 @@ The "compound" part: the outer component holds shared state, and the inner compo
 **When to use:** you're building a reusable UI primitive with multiple cooperating parts, or you want callers to have flexibility in *ordering* and *which parts to include*.
 
 **Strength:** very ergonomic API for users; flexible structure.
-**Weakness:** more setup; uses Context which we haven't covered yet (doc 07). Don't reach for this until you've felt the pain that justifies it.
+**Weakness:** more setup; uses Context which we haven't covered yet (doc 08). Don't reach for this until you've felt the pain that justifies it.
 
 ## Pattern 4 — Render props
 
@@ -121,7 +127,7 @@ The `<T>` thing on the function and type is **generics** — `T` is a placeholde
 **When to use:** the component owns *behavior* (iteration, data fetching, drag state, virtualization) but doesn't know how things should look. Render props let the caller control the appearance.
 
 **Strength:** highly reusable — one component handles logic, infinite UI variations.
-**Weakness:** can get nesty (`render prop returning a render prop`). Modern alternative: extract the behavior into a custom hook (doc 04 + 05) and let the caller do their own rendering.
+**Weakness:** can get nesty (`render prop returning a render prop`). Modern alternative: extract the behavior into a custom hook (docs 04 and 06) and let the caller do their own rendering.
 
 ## Pattern 5 — Polymorphic components (the `as` prop)
 
@@ -154,7 +160,7 @@ In src/lessons/03-composition/, build four small examples in one file:
 1. A `<Card>` component using just `children`
 2. A `<PageLayout>` component with `header`, `sidebar`, and `children` slot props
 3. A compound `<Disclosure>` / `<Disclosure.Trigger>` / `<Disclosure.Panel>`
-   that shows/hides content (use useState; we'll learn Context in doc 07)
+   that shows/hides content (use useState; we'll learn Context in doc 08)
 4. A generic `<DataTable<T>>` component using a render-prop pattern for
    how each row should be rendered
 
@@ -190,7 +196,7 @@ and why:
 2. When does `children` stop being enough? What do you reach for next?
 3. What's the difference between a render prop and just passing JSX as a prop?
 4. Why is "start with `children`, escalate only when needed" a good default?
-5. Compound components share state behind the scenes — what mechanism is React going to use for that (foreshadowing doc 07)?
+5. Compound components share state behind the scenes — what mechanism is React going to use for that (foreshadowing doc 08)?
 
 ## Footguns
 
@@ -208,5 +214,6 @@ and why:
 
 ## Where this goes next
 
-- **Doc 04** — State in depth. Now that you can compose components, where does the *state* live? `useState`, `useReducer`, lifting state up, when to colocate.
-- **Doc 07** — Context, which is the wiring underneath compound components.
+- **Doc 04** — Hooks: the concept. The rules and mental model that govern every hook you'll meet from doc 05 onward.
+- **Doc 05** — State in depth. Now that you can compose components, where does the *state* live? `useState`, `useReducer`, lifting state up, when to colocate.
+- **Doc 08** — Context, which is the wiring underneath compound components.

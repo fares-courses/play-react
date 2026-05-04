@@ -2,7 +2,7 @@
 
 ## What you're learning & why it matters
 
-You're learning the right way to fetch and cache data from your Rails API in a React app. The library: **TanStack Query** (formerly React Query). After doc 05 (effects), you saw why "fetch in useEffect" goes wrong: race conditions, no caching, no deduplication, manual loading flags. TanStack Query solves all of that and more.
+You're learning the right way to fetch and cache data from your Rails API in a React app. The library: **TanStack Query** (formerly React Query). After doc 06 (effects), you saw why "fetch in useEffect" goes wrong: race conditions, no caching, no deduplication, manual loading flags. TanStack Query solves all of that and more.
 
 This is the single highest-leverage library in modern React. If your app talks to an API (it almost always does), this is how.
 
@@ -233,7 +233,7 @@ useQuery({ queryKey: ["users", { page }], queryFn: () => fetchUsers(page) });
 ```
 Use `keepPreviousData: true` (or `placeholderData: previousData` in newer versions) so the previous page is shown while the next loads.
 
-**4. Validation errors from Rails (422 with field errors).** Throw a structured error from queryFn/mutationFn so your form can map errors back to fields. Doc 11 covers this with react-hook-form.
+**4. Validation errors from Rails (422 with field errors).** Throw a structured error from queryFn/mutationFn so your form can map errors back to fields. Doc 12 covers this with react-hook-form.
 
 ## How to use this doc with an agent
 
@@ -314,6 +314,6 @@ This is the layer I'll actually copy into real projects.
 
 ## Where this goes next
 
-- **Doc 11** — Forms, where mutations and field-level error handling come together.
-- **Doc 12** — Suspense + Error Boundaries, the modern way to handle loading/error states declaratively (TanStack Query supports Suspense mode).
-- **Doc 17** — Auth flows, including how to attach tokens to all queries.
+- **Doc 12** — Forms, where mutations and field-level error handling come together.
+- **Doc 13** — Suspense + Error Boundaries, the modern way to handle loading/error states declaratively (TanStack Query supports Suspense mode).
+- **Doc 18** — Auth flows, including how to attach tokens to all queries.

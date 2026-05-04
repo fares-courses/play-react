@@ -288,6 +288,6 @@ error banner.
 
 ## Where this goes next
 
-- **Doc 12** — Error boundaries and loading UX, including for form-level errors.
-- **Doc 17** — Auth flows, where you'll build a login form with this exact stack.
-- **Doc 19** — File uploads, which add their own form-handling wrinkles.
+- **Doc 13** — Error boundaries and loading UX, including for form-level errors.
+- **Doc 18** — Auth flows, where you'll build a login form with this exact stack.
+- **Doc 20** — File uploads, which add their own form-handling wrinkles.

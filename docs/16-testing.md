@@ -285,5 +285,5 @@ navigation). Use getByRole / getByLabel for selectors.
 
 ## Where this goes next
 
-- **Doc 16** — Tooling and shipping; some test patterns relate to CI/CD setup.
-- **Doc 17** — Auth flows; testing forms with auth is one of the highest-value cases.
+- **Doc 17** — Tooling and shipping; some test patterns relate to CI/CD setup.
+- **Doc 18** — Auth flows; testing forms with auth is one of the highest-value cases.

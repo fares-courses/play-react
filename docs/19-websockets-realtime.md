@@ -4,7 +4,7 @@
 
 You're learning how to add real-time updates to a React app — chat, live notifications, collaborative editing, server-pushed status. The transport varies (raw WebSocket, Socket.IO, ActionCable from Rails) but the React patterns are the same: connect on mount, sync events into state, clean up on unmount, handle reconnection.
 
-This is one of the cleanest applications of "effects as synchronization" (doc 05). If you understood that doc, this one is mostly applying it.
+This is one of the cleanest applications of "effects as synchronization" (doc 06). If you understood that doc, this one is mostly applying it.
 
 ### Terms first
 
@@ -71,7 +71,7 @@ function ChatRoom({ roomId }: { roomId: string }) {
 ```
 
 Two key bits:
-- The connection is in a ref (doc 06) — it doesn't drive UI re-renders, only the messages do.
+- The connection is in a ref (doc 07) — it doesn't drive UI re-renders, only the messages do.
 - Cleanup closes the connection when `roomId` changes or the component unmounts.
 
 Things this doesn't handle out of the box: reconnection, exponential backoff, auth, heartbeats, message queueing while disconnected. That's why most apps use a library.
@@ -217,7 +217,7 @@ Best of both: initial load + pagination via Query, live updates via WebSocket pu
 
 ## Combining with `useOptimistic`
 
-Send a message, see it appear instantly, replaced by the server's authoritative version when the WS echoes it back. Doc 13's `useOptimistic` is perfect for this. Server-confirmed message replaces optimistic placeholder.
+Send a message, see it appear instantly, replaced by the server's authoritative version when the WS echoes it back. Doc 14's `useOptimistic` is perfect for this. Server-confirmed message replaces optimistic placeholder.
 
 ## How to use this doc with an agent
 
@@ -299,5 +299,5 @@ that matter and write code that passes them.
 
 ## Where this goes next
 
-- **Doc 19** — File uploads, where progress events are real-time-ish but use different APIs.
-- **Doc 21** — Animations, often used with real-time UIs to soften incoming-data UX.
+- **Doc 20** — File uploads, where progress events are real-time-ish but use different APIs.
+- **Doc 22** — Animations, often used with real-time UIs to soften incoming-data UX.

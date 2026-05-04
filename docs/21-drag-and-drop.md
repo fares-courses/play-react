@@ -138,7 +138,7 @@ function handleDragEnd(event: DragEndEvent) {
 
 Each column is its own `SortableContext`. dnd-kit handles cross-list drags out of the box; you just have to update your data model.
 
-For complex board state, use `useReducer` (doc 04) — drag operations have several state mutations that benefit from a single transition function.
+For complex board state, use `useReducer` (doc 05) — drag operations have several state mutations that benefit from a single transition function.
 
 ## Drag overlay (smoother visuals)
 
@@ -200,7 +200,7 @@ function handleDragEnd(event: DragEndEvent) {
 }
 ```
 
-For TanStack Query-managed lists, use `setQueryData` instead of `setTasks` and pair with `onMutate`/`onError`/`onSettled` (doc 10).
+For TanStack Query-managed lists, use `setQueryData` instead of `setTasks` and pair with `onMutate`/`onError`/`onSettled` (doc 11).
 
 ## How to use this doc with an agent
 
@@ -262,7 +262,7 @@ on dragging states. List concrete fixes, then apply them.
 - **Skipping `onDragEnd`'s null-check.** `over` can be null if dropped outside any droppable. Crash without the guard.
 - **Mutating the array in state.** dnd-kit doesn't care, but React does. Use `arrayMove` (returns new array) and pass to setter.
 - **Ignoring keyboard accessibility.** Configure `KeyboardSensor` and `accessibility` announcements. This is the single highest-value a11y improvement for DnD.
-- **Heavy items inside `SortableContext` re-rendering on every drag move.** Memoize items if performance suffers (doc 08).
+- **Heavy items inside `SortableContext` re-rendering on every drag move.** Memoize items if performance suffers (doc 09).
 - **Replacing `useSortable` with handwritten pointer events to "save a dependency."** Almost always a mistake; you'll re-implement edge cases poorly.
 
 ## Ask-the-agent cheatsheet
@@ -275,4 +275,4 @@ on dragging states. List concrete fixes, then apply them.
 
 ## Where this goes next
 
-- **Doc 21** — Animations. dnd-kit's transitions are good; combine with Motion for entrance/exit animations.
+- **Doc 22** — Animations. dnd-kit's transitions are good; combine with Motion for entrance/exit animations.

@@ -192,7 +192,7 @@ function Chat() {
 }
 ```
 
-This is the kind of pattern `useEffectEvent` (doc 05) replaces in newer React. But you'll still see this idiom and it's worth knowing.
+This is the kind of pattern `useEffectEvent` (doc 06) replaces in newer React. But you'll still see this idiom and it's worth knowing.
 
 ## How to use this doc with an agent
 
@@ -267,6 +267,6 @@ or by restructuring the component to not need them at all?
 
 ## Where this goes next
 
-- **Doc 07** — Context, for sharing state across distant components without prop drilling.
-- **Doc 18** — WebSockets, where refs come up naturally for the connection instance.
-- **Doc 20** — Drag-and-drop, which leans heavily on refs for DOM measurements.
+- **Doc 08** — Context, for sharing state across distant components without prop drilling.
+- **Doc 19** — WebSockets, where refs come up naturally for the connection instance.
+- **Doc 21** — Drag-and-drop, which leans heavily on refs for DOM measurements.

@@ -76,10 +76,14 @@ You'll get other prompt patterns inside the docs.
 
 ```
 docs/
+  -01-intro-to-frontend.md       ← read this first
   00-how-to-use-this-course.md   ← you are here
   01-mental-model.md
   02-components-jsx-typescript.md
+  03-composition-patterns.md
+  04-hooks-the-concept.md
   ...
+  23-internationalization.md
 src/lessons/
   01-mental-model/               ← code for doc 01
   02-components/
@@ -88,7 +92,7 @@ src/lessons/
 
 Each `src/lessons/NN-*/` folder has its own `index.tsx` that you mount from `src/App.tsx` while you're on that lesson. The agent will set this up; you don't need to manage it manually.
 
-## Course map (22 docs + intro)
+## Course map (23 docs + intro)
 
 **Before you start**
 - 00-intro — Frontend for the backend developer (browser, HTML, CSS, jargon, AI workflow)
@@ -97,37 +101,38 @@ Each `src/lessons/NN-*/` folder has its own `index.tsx` that you mount from `src
 - 01 — Mental model & the React runtime
 - 02 — Components, JSX, TypeScript for props
 - 03 — Composition patterns (children, slots, compound, render props)
+- 04 — Hooks: the concept (rules of hooks, custom hooks, the hook map)
 
 **State & reactivity**
-- 04 — `useState`, `useReducer`, state architecture
-- 05 — Effects as synchronization (the deep one)
-- 06 — Refs & imperative escape hatches
+- 05 — `useState`, `useReducer`, state architecture
+- 06 — Effects as synchronization (the deep one)
+- 07 — Refs & imperative escape hatches
 
 **Sharing & scaling state**
-- 07 — Context, and when to reach for an external store
-- 08 — Performance, memo, the React Compiler, profiling
+- 08 — Context, and when to reach for an external store
+- 09 — Performance, memo, the React Compiler, profiling
 
 **Real apps**
-- 09 — Routing (React Router / TanStack Router)
-- 10 — Data fetching with TanStack Query
-- 11 — Forms with react-hook-form + Zod
-- 12 — Error boundaries, Suspense, loading/error UX
+- 10 — Routing (React Router / TanStack Router)
+- 11 — Data fetching with TanStack Query
+- 12 — Forms with react-hook-form + Zod
+- 13 — Error boundaries, Suspense, loading/error UX
 
 **Modern React**
-- 13 — React 19: `use()`, Actions, `useOptimistic`, `useTransition`
-- 14 — Server Components mental model
+- 14 — React 19: `use()`, Actions, `useOptimistic`, `useTransition`
+- 15 — Server Components mental model
 
 **Production concerns**
-- 15 — Testing (Vitest + RTL + Playwright)
-- 16 — Tooling, accessibility, shipping
+- 16 — Testing (Vitest + RTL + Playwright)
+- 17 — Tooling, accessibility, shipping
 
 **Specialized topics**
-- 17 — Auth flows (token/session, refresh, guards, Rails integration)
-- 18 — WebSockets & real-time (incl. ActionCable)
-- 19 — File uploads (multipart, direct-to-S3, ActiveStorage)
-- 20 — Drag-and-drop (dnd-kit)
-- 21 — Animations (Framer Motion / Motion)
-- 22 — Internationalization (i18next)
+- 18 — Auth flows (token/session, refresh, guards, Rails integration)
+- 19 — WebSockets & real-time (incl. ActionCable)
+- 20 — File uploads (multipart, direct-to-S3, ActiveStorage)
+- 21 — Drag-and-drop (dnd-kit)
+- 22 — Animations (Framer Motion / Motion)
+- 23 — Internationalization (i18next)
 
 ## How to know you're done with a doc
 

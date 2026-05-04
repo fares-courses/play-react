@@ -220,7 +220,7 @@ i18n.use(HttpApi).init({
 });
 ```
 
-Each locale is a separate JSON fetched on first use — saves bytes upfront. Pair with code-splitting (doc 09) for full optimization.
+Each locale is a separate JSON fetched on first use — saves bytes upfront. Pair with code-splitting (doc 10) for full optimization.
 
 ## Translation key naming
 
@@ -311,6 +311,6 @@ concat, mid-sentence variables, etc.).
 
 ## Where this goes next
 
-You've reached the end of the course. Looping back is healthy — re-read doc 01 (mental model) and doc 05 (effects) after you've built a real app or two; the second pass lands deeper.
+You've reached the end of the course. Looping back is healthy — re-read doc 01 (mental model) and doc 06 (effects) after you've built a real app or two; the second pass lands deeper.
 
 The next move is *building*. Pick a small project — a Rails API you've already built, paired with a fresh React SPA in front of it. Use this course's docs as references, the agent prompts as scaffolding, and the footguns as a debugging guide. The docs aren't meant to be memorized — they're meant to be the layer between you and your agent that prevents confidently-wrong code from shipping.

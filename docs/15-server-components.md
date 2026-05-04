@@ -118,7 +118,7 @@ export function NewPostForm() {
 }
 ```
 
-The client form calls the server function as if it were local. Behind the scenes, the framework serializes the call to an HTTP request. From the developer's perspective, you're just calling a function. Pairs naturally with `useActionState` (doc 13).
+The client form calls the server function as if it were local. Behind the scenes, the framework serializes the call to an HTTP request. From the developer's perspective, you're just calling a function. Pairs naturally with `useActionState` (doc 14).
 
 This replaces a lot of "client form → REST endpoint → controller" plumbing in many apps. **Note for your case:** if your backend is Rails (separate API), you typically *won't* use Server Actions — your API is your source of truth, and the React app is a client. Server Actions shine when the React framework owns both client and server (Next.js + Postgres, say). Worth understanding the pattern though, because in the future your app might consolidate or you might work in mixed environments.
 
@@ -158,7 +158,7 @@ If you decide to try RSC, build a small Next.js project alongside this one and p
 
 **1. Conceptual quiz:**
 ```
-Quiz me on RSC concepts from doc 14. Cover:
+Quiz me on RSC concepts from doc 15. Cover:
 - Difference between server and client components
 - What "use client" and "use server" mean
 - The composition rule (who can render whom)
@@ -220,6 +220,6 @@ component, what becomes "use client", where do I put server actions?
 
 ## Where this goes next
 
-- **Doc 15** — Testing. Same principles whether SPA or RSC.
-- **Doc 16** — Tooling and shipping. Vite, accessibility, bundle awareness.
-- **Doc 17** — Auth flows. Differs slightly in RSC (cookies + middleware) vs SPA (Bearer tokens) — we'll do SPA-style and note the RSC variant.
+- **Doc 16** — Testing. Same principles whether SPA or RSC.
+- **Doc 17** — Tooling and shipping. Vite, accessibility, bundle awareness.
+- **Doc 18** — Auth flows. Differs slightly in RSC (cookies + middleware) vs SPA (Bearer tokens) — we'll do SPA-style and note the RSC variant.

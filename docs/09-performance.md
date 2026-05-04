@@ -114,7 +114,7 @@ Library: `@tanstack/react-virtual`. Stays close to React, no bloat. Whenever a l
 
 - **Stable `key`s.** Already covered (doc 02). Reused indexes confuse the reconciler and cause unnecessary unmounts/remounts.
 - **Push state down.** A piece of state high in the tree causes the entire subtree to re-render on changes. If only one branch needs it, move it down.
-- **Split contexts.** (Doc 07.) One big context = many re-renders.
+- **Split contexts.** (Doc 08.) One big context = many re-renders.
 - **Avoid inline `style={{...}}` if it's hot path.** Each render creates a new object. Use CSS or memoize.
 
 ## How to use this doc with an agent
@@ -189,5 +189,5 @@ enabled, can it be removed? Be honest — call out unnecessary memoization.
 
 ## Where this goes next
 
-- **Doc 09** — Routing. Page-level code-splitting is a different perf lever (load less code upfront).
-- **Doc 12** — Suspense, which gives you better loading UX than manual flags and pairs with code-splitting.
+- **Doc 10** — Routing. Page-level code-splitting is a different perf lever (load less code upfront).
+- **Doc 13** — Suspense, which gives you better loading UX than manual flags and pairs with code-splitting.

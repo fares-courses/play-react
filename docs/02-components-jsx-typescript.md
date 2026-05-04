@@ -153,7 +153,7 @@ If `isLoggedIn` is true, render the button. If false, render nothing (`false` is
 ```tsx
 {users.map(user => <UserCard key={user.id} user={user} />)}
 ```
-The `key` prop is required for lists — it's how React identifies which item is which across re-renders. Use a stable unique ID (typically the database ID). Never use the array index as a key unless the list is static and never reordered (we'll cover *why* in doc 04).
+The `key` prop is required for lists — it's how React identifies which item is which across re-renders. Use a stable unique ID (typically the database ID). Never use the array index as a key unless the list is static and never reordered (we'll cover *why* in doc 05).
 
 `key` is a built-in React prop — you don't declare it in your Props type.
 
@@ -275,7 +275,7 @@ and one footgun. Stop after 5 questions.
 - **Conditional rendering with numbers.** `{count && <Foo />}` — if `count` is `0`, this renders the literal `0` on the page (because `0` is falsy in JS, but React renders numbers, not skips them like `false`). Use `{count > 0 && <Foo />}` or `{count ? <Foo /> : null}`. (Different Behavior than Ruby)
 - **Mutating props.** Props are read-only. If you need to "modify" something a parent gave you, ask the parent for an update (pass a callback prop). Treat props like immutable inputs to a pure function — because that's what they are.
 - **Reaching for `any` when types feel hard.** `any` turns off type checking for that value and quietly poisons everything it touches. If you don't know the type, use `unknown` (forces you to narrow before using it) or ask the agent to type it properly. The whole point of TS is to catch the agent's mistakes — `any` defeats that.
-- **Inline object/array props recreate on every render.** `<Foo style={{ color: "red" }} />` creates a new object every render. Usually fine, but it can break memoization (doc 08). Worth knowing exists; don't preemptively optimize.
+- **Inline object/array props recreate on every render.** `<Foo style={{ color: "red" }} />` creates a new object every render. Usually fine, but it can break memoization (doc 09). Worth knowing exists; don't preemptively optimize.
 
 ## Ask-the-agent cheatsheet
 
@@ -288,4 +288,5 @@ and one footgun. Stop after 5 questions.
 ## Where this goes next
 
 - **Doc 03** — Composition patterns. Once you've got components and JSX down, the next leap is patterns for composing them: `children`, slots, compound components, render props. This is how real component libraries are built.
-- **Doc 04** — State in depth. We pick up `useState` and add `useReducer`, plus the question of *where* state should live.
+- **Doc 04** — Hooks: the concept. The rules and mental model that govern every hook you'll meet from doc 05 onward.
+- **Doc 05** — State in depth. We pick up `useState` and add `useReducer`, plus the question of *where* state should live.

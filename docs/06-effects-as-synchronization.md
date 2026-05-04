@@ -103,7 +103,7 @@ function handleSubmit() { sendForm(); }
 
 **4. Setting state based on props.** Compute it during render or lift it.
 
-**5. Fetching data in most cases** (use TanStack Query, doc 10). The effect-based fetch pattern is full of footguns: race conditions, stale closures, no caching, no deduplication, no retry. You can write it once correctly to learn, but in real apps, use a library.
+**5. Fetching data in most cases** (use TanStack Query, doc 11). The effect-based fetch pattern is full of footguns: race conditions, stale closures, no caching, no deduplication, no retry. You can write it once correctly to learn, but in real apps, use a library.
 
 ### You do need an effect for:
 
@@ -122,7 +122,7 @@ Two rules:
 
 **Rule 2: If a dep is a freshly-recreated object/array/function, the effect runs every render.** You either:
 - Move the value inside the effect (so it's not a dep).
-- Memoize it with `useMemo`/`useCallback` (doc 08).
+- Memoize it with `useMemo`/`useCallback` (doc 09).
 - Restructure to depend on primitives (strings, numbers, booleans).
 
 ### Example of getting it wrong
@@ -176,7 +176,7 @@ useEffect(() => {
 }, [id]);
 ```
 
-In real apps you let TanStack Query (doc 10) handle this for you. But you should know it exists, so you can spot the bug in code that doesn't use a library.
+In real apps you let TanStack Query (doc 11) handle this for you. But you should know it exists, so you can spot the bug in code that doesn't use a library.
 
 ## `useEffectEvent` (React 19, useful when stable)
 
@@ -276,10 +276,10 @@ doing a fetch on mount]
 - *"This effect is missing dependencies that the linter wants me to add. Add them properly without introducing infinite loops — restructure if needed."*
 - *"This fetch-in-effect has a race condition. Add an AbortController fix and walk me through what it prevents."*
 - *"This effect depends on an inline object/function and runs every render. Restructure so it only runs when something meaningful changes."*
-- *"Replace this effect-based fetch with a TanStack Query call (doc 10 territory). Keep the loading and error states."*
+- *"Replace this effect-based fetch with a TanStack Query call (doc 11 territory). Keep the loading and error states."*
 
 ## Where this goes next
 
-- **Doc 06** — Refs, the imperative escape hatch when effects/state aren't the right tool.
-- **Doc 10** — TanStack Query, which makes most fetch-in-effect code obsolete.
-- **Doc 12** — Suspense, the modern way to handle loading states without manual flags.
+- **Doc 07** — Refs, the imperative escape hatch when effects/state aren't the right tool.
+- **Doc 11** — TanStack Query, which makes most fetch-in-effect code obsolete.
+- **Doc 13** — Suspense, the modern way to handle loading states without manual flags.

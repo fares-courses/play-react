@@ -127,18 +127,18 @@ The principle: **state lives at the lowest common ancestor of all components tha
 
 **Two siblings need to share state?** Lift it to their common parent. The parent owns it; both children receive the value via props and one child receives a callback to update it.
 
-**Many distant components need it?** Then you reach for Context (doc 07) or an external store. **Don't reach here first.** Most state should not be global.
+**Many distant components need it?** Then you reach for Context (doc 08) or an external store. **Don't reach here first.** Most state should not be global.
 
-**State that's actually data from the server (users, posts, etc.)?** That's not "state" in the same sense — it's a cache of remote data. It belongs in a data-fetching library like TanStack Query (doc 10). Don't put server data in `useState` and don't manually keep it in sync. This is one of the highest-leverage rules in modern React.
+**State that's actually data from the server (users, posts, etc.)?** That's not "state" in the same sense — it's a cache of remote data. It belongs in a data-fetching library like TanStack Query (doc 11). Don't put server data in `useState` and don't manually keep it in sync. This is one of the highest-leverage rules in modern React.
 
 So we have roughly four buckets of state:
 
 | Kind | Example | Where it lives |
 |---|---|---|
 | Local UI state | "is this dropdown open" | `useState` in the component |
-| Form state | input values, validation errors | `useReducer` or react-hook-form (doc 11) |
-| Shared client state | theme, current locale, auth user | Context or external store (doc 07) |
-| Server cache | the list of users from your Rails API | TanStack Query (doc 10) |
+| Form state | input values, validation errors | `useReducer` or react-hook-form (doc 12) |
+| Shared client state | theme, current locale, auth user | Context or external store (doc 08) |
+| Server cache | the list of users from your Rails API | TanStack Query (doc 11) |
 
 Knowing which bucket a piece of data falls into is half the battle.
 
@@ -226,7 +226,7 @@ reducer so I can trace what's happening.
 Show me a clear demonstration of stale state caused by reading a state
 variable inside a setTimeout callback. Then show me the two ways to fix it
 (updater function form, and lifting it to a ref — though we'll do refs
-properly in doc 06). Explain why each fix works in terms of closures.
+properly in doc 07). Explain why each fix works in terms of closures.
 ```
 
 **3. Architecture exercise:**
@@ -260,8 +260,8 @@ need to be state at all). Justify each:
 - **Reading state immediately after setting it.** `setX(5); console.log(x)` logs the old value. State updates are async; the new value is visible in the next render.
 - **Putting everything in one giant `useState({...})` object.** You then have to spread it on every update and changing one field re-renders everything that uses the object. Either split into multiple `useState` calls or graduate to `useReducer`.
 - **Lifting state up too aggressively.** Every piece of state that gets lifted causes the lifting parent (and all its descendants) to re-render on changes. Lift only as high as truly necessary.
-- **Treating server data as local state.** You set it once on fetch, forget it can become stale, and now your UI shows yesterday's data forever. Use a real data layer (doc 10).
-- **Closure-captured stale state in async callbacks.** If a `setTimeout` reads `count`, it sees the value from when it was scheduled, not the current one. Use the updater function form, or a ref (doc 06), or restructure.
+- **Treating server data as local state.** You set it once on fetch, forget it can become stale, and now your UI shows yesterday's data forever. Use a real data layer (doc 11).
+- **Closure-captured stale state in async callbacks.** If a `setTimeout` reads `count`, it sees the value from when it was scheduled, not the current one. Use the updater function form, or a ref (doc 07), or restructure.
 
 ## Ask-the-agent cheatsheet
 
@@ -273,6 +273,6 @@ need to be state at all). Justify each:
 
 ## Where this goes next
 
-- **Doc 05** — Effects. The other half of "where logic lives in a component," and the place where stale-state bugs reach their final form.
-- **Doc 07** — Context, for state that genuinely needs to be shared widely.
-- **Doc 10** — TanStack Query, for server data that should never be in `useState`.
+- **Doc 06** — Effects. The other half of "where logic lives in a component," and the place where stale-state bugs reach their final form.
+- **Doc 08** — Context, for state that genuinely needs to be shared widely.
+- **Doc 11** — TanStack Query, for server data that should never be in `useState`.
