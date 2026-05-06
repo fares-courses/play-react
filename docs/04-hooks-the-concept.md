@@ -141,7 +141,7 @@ The package `eslint-plugin-react-hooks` ships two rules:
 - **`react-hooks/rules-of-hooks`** — yells if you violate the two rules above.
 - **`react-hooks/exhaustive-deps`** — yells if your `useEffect`/`useMemo`/`useCallback` dependency arrays are wrong (doc 06 covers this).
 
-Both are already enabled in modern starter setups (your Vite project has them via the `eslint-plugin-react-hooks` dependency). Verify they're on by writing a deliberately conditional `useState` and watching for the lint error. If you don't see one, fix the config.
+Both are already enabled in modern starter setups (your Vite project has them via the `eslint-plugin-react-hooks` dependency). Verify they're on by writing a deliberately conditional `useState` and watching for the lint error. If you don't see one, fix the config and install ESLint extension for your IDE.
 
 **Don't disable these rules to "make warnings go away."** Almost every time someone disables them, the bug they were warned about hits in production.
 

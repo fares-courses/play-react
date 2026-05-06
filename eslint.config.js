@@ -12,9 +12,11 @@ export default defineConfig([
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
+    plugins: {
+      'react-hooks': reactHooks,
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -25,6 +27,7 @@ export default defineConfig([
       },
     },
     rules: {
+      ...reactHooks.configs.flat.recommended.rules,
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
