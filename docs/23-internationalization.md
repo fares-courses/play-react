@@ -1,4 +1,4 @@
-# 22 — Internationalization (i18n)
+# 23 — Internationalization (i18n)
 
 ## What you're learning & why it matters
 

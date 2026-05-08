@@ -1,4 +1,4 @@
-# 08 — Performance, memo, and the React Compiler
+# 09 — Performance, memo, and the React Compiler
 
 ## What you're learning & why it matters
 

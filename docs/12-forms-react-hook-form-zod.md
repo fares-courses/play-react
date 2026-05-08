@@ -1,4 +1,4 @@
-# 11 — Forms with react-hook-form + Zod
+# 12 — Forms with react-hook-form + Zod
 
 ## What you're learning & why it matters
 

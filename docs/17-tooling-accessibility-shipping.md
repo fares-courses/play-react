@@ -1,4 +1,4 @@
-# 16 — Tooling, accessibility, and shipping
+# 17 — Tooling, accessibility, and shipping
 
 ## What you're learning & why it matters
 

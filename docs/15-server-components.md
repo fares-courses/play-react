@@ -1,4 +1,4 @@
-# 14 — Server Components mental model
+# 15 — Server Components mental model
 
 ## What you're learning & why it matters
 

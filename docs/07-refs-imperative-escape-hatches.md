@@ -1,4 +1,4 @@
-# 06 — Refs and imperative escape hatches
+# 07 — Refs and imperative escape hatches
 
 ## What you're learning & why it matters
 

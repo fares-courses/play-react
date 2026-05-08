@@ -1,4 +1,4 @@
-# 12 — Error boundaries, Suspense, and loading UX
+# 13 — Error boundaries, Suspense, and loading UX
 
 ## What you're learning & why it matters
 

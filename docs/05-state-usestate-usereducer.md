@@ -1,4 +1,4 @@
-# 04 — `useState`, `useReducer`, and where state lives
+# 05 — `useState`, `useReducer`, and where state lives
 
 ## What you're learning & why it matters
 

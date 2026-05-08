@@ -1,4 +1,4 @@
-# 07 — Context and external stores
+# 08 — Context and external stores
 
 ## What you're learning & why it matters
 

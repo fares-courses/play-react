@@ -1,4 +1,4 @@
-# 05 — Effects as synchronization (the deep one)
+# 06 — Effects as synchronization (the deep one)
 
 ## What you're learning & why it matters
 

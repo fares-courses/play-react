@@ -1,4 +1,4 @@
-# 09 — Routing
+# 10 — Routing
 
 ## What you're learning & why it matters
 

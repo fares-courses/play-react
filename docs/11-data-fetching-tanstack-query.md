@@ -1,4 +1,4 @@
-# 10 — Data fetching with TanStack Query
+# 11 — Data fetching with TanStack Query
 
 ## What you're learning & why it matters
 

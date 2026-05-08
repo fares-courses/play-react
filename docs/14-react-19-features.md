@@ -1,4 +1,4 @@
-# 13 — React 19: `use()`, Actions, `useOptimistic`, `useTransition`
+# 14 — React 19: `use()`, Actions, `useOptimistic`, `useTransition`
 
 ## What you're learning & why it matters
 
