@@ -115,6 +115,30 @@ The `Action` type is a **discriminated union** (TS feature): each variant has a 
 
 Why this is nice: all your state transitions are one function, easy to read, easy to test, and the TS types ensure you handle them all.
 
+### Discriminated Union
+
+A discriminated union is a TypeScript feature that allows you to create a type that can be one of several specific types, where each type has a unique property (the discriminator) that allows TypeScript to narrow the type based on that property.
+
+Without a discriminated union, you might try to represent a network request like this:
+```tsx
+type RequestState = {
+  status: string;
+  data?: string;
+  error?: string;
+};
+```
+The Problem: TypeScript doesn't know that if status is "error", data should be empty. You could accidentally try to read data when it's undefined, and TypeScript won't stop you.
+
+With a discriminated union, you can represent the same state like this:
+```tsx
+type RequestState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: string }
+  | { status: "error"; error: string };
+```
+Now TypeScript knows that if status is "success", data must exist, and if status is "error", error must exist. This prevents runtime bugs and makes your code more predictable.
+
 ## The big architecture question: *where does state live?*
 
 This is the most consequential decision in any React app and the one most beginners get wrong by going in either direction (everything global, or everything local but duplicated).
