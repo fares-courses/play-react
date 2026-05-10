@@ -222,6 +222,49 @@ const count = items.length;
 
 State that mirrors other state is a bug factory. Only store the *minimal* representation; derive the rest.
 
+
+### Closure Definition
+
+A closure is a function that has access to variables from its outer (enclosing) scope, even after the outer function has finished executing. In React, this is particularly important when dealing with state and asynchronous operations.
+> Normally, when a function finishes running, all its local variables are wiped from memory. A closure prevents this by "holding onto" those variables as long as the inner function exists.
+```tsx
+function createGreeter(name) {
+  // 'name' is a local variable in the parent's scope
+  return function() {
+    // This inner function is the "Closure"
+    console.log("Hello, " + name); 
+  };
+}
+
+const greetAlice = createGreeter("Alice");
+greetAlice(); // Output: "Hello, Alice"
+```
+#### Example: The "Stale Closure" Problem
+
+If you use a closure inside a setTimeout, it remembers the state at the exact moment it was created.
+```tsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const handleAlert = () => {
+    setTimeout(() => {
+      // This function is a closure. It remembers 'count' 
+      // from the moment the button was clicked.
+      alert("Count was: " + count);
+    }, 3000);
+  };
+
+  return (
+    <div>
+      <p>Current: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <button onClick={handleAlert}>Show Alert in 3s</button>
+    </div>
+  );
+}
+```
+> The Scenario: You click "Show Alert," then quickly click "Increment" five times. Three seconds later, the alert will show 0, not 5. This is because the closure "captured" the value 0 when it was born.
+
 ## How to use this doc with an agent
 
 **1. Build the lesson:**
