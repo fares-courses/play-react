@@ -1,4 +1,4 @@
-# 22 — Animations
+# 24 — Animations
 
 ## What you're learning & why it matters
 
@@ -110,7 +110,7 @@ When a list reorders, you want items to glide between positions. Add `layout` to
 ))}
 ```
 
-Reorder the array; items physically slide. Combine with dnd-kit (doc 21) for the smoothest sortable lists you'll ever write.
+Reorder the array; items physically slide. Combine with dnd-kit (doc 23) for the smoothest sortable lists you'll ever write.
 
 Use sparingly — `layout` re-measures on every render, which can be expensive on long lists. Don't sprinkle on everything.
 
@@ -216,7 +216,7 @@ Justify each choice in one line.
 
 **3. Pairing with dnd-kit:**
 ```
-Combine Motion's layout animations with the dnd-kit kanban from doc 21.
+Combine Motion's layout animations with the dnd-kit kanban from doc 23.
 Each card should slide smoothly between positions on drop. Show me the
 diff and explain how layout + dnd-kit's transform interact (and how to
 avoid double-animation).
@@ -252,4 +252,4 @@ avoid double-animation).
 
 ## Where this goes next
 
-- **Doc 23** — Internationalization, where text-direction (RTL) intersects with animations (slide directions need to flip).
+- **Doc 25** — Internationalization, where text-direction (RTL) intersects with animations (slide directions need to flip).

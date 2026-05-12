@@ -1,4 +1,4 @@
-# 18 — Auth flows
+# 20 — Auth flows
 
 ## What you're learning & why it matters
 
@@ -161,7 +161,7 @@ api.patch = <T,>(p: string, body: any) => api<T>(p, { method: "PATCH", body: JSO
 api.delete = <T,>(p: string) => api<T>(p, { method: "DELETE" });
 ```
 
-Now every TanStack Query (doc 11) call uses this wrapper, gets the token automatically, and 401s hard-redirect to login.
+Now every TanStack Query (doc 12) call uses this wrapper, gets the token automatically, and 401s hard-redirect to login.
 
 ## Route guards
 
@@ -193,7 +193,7 @@ Important: handle the *loading* state. Without it, the user briefly sees a "you'
 
 ## The login form
 
-Combining doc 12 (forms) and doc 11 (mutations):
+Combining doc 14 (forms) and doc 12 (mutations):
 
 ```tsx
 const Schema = z.object({
@@ -375,5 +375,5 @@ care about, then write code that passes them.
 
 ## Where this goes next
 
-- **Doc 19** — WebSockets, where authenticated connections need similar token-passing logic.
-- **Doc 20** — File uploads, sometimes requiring signed URLs that themselves are auth-flavored.
+- **Doc 21** — WebSockets, where authenticated connections need similar token-passing logic.
+- **Doc 22** — File uploads, sometimes requiring signed URLs that themselves are auth-flavored.

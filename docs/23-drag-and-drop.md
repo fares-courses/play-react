@@ -1,4 +1,4 @@
-# 21 — Drag-and-drop
+# 23 — Drag-and-drop
 
 ## What you're learning & why it matters
 
@@ -200,7 +200,7 @@ function handleDragEnd(event: DragEndEvent) {
 }
 ```
 
-For TanStack Query-managed lists, use `setQueryData` instead of `setTasks` and pair with `onMutate`/`onError`/`onSettled` (doc 11).
+For TanStack Query-managed lists, use `setQueryData` instead of `setTasks` and pair with `onMutate`/`onError`/`onSettled` (doc 12).
 
 ## How to use this doc with an agent
 
@@ -275,4 +275,4 @@ on dragging states. List concrete fixes, then apply them.
 
 ## Where this goes next
 
-- **Doc 22** — Animations. dnd-kit's transitions are good; combine with Motion for entrance/exit animations.
+- **Doc 24** — Animations. dnd-kit's transitions are good; combine with Motion for entrance/exit animations.

@@ -190,4 +190,4 @@ enabled, can it be removed? Be honest — call out unnecessary memoization.
 ## Where this goes next
 
 - **Doc 10** — Routing. Page-level code-splitting is a different perf lever (load less code upfront).
-- **Doc 13** — Suspense, which gives you better loading UX than manual flags and pairs with code-splitting.
+- **Doc 15** — Suspense, which gives you better loading UX than manual flags and pairs with code-splitting.

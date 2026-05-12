@@ -1,4 +1,4 @@
-# 16 — Testing
+# 18 — Testing
 
 ## What you're learning & why it matters
 
@@ -285,5 +285,5 @@ navigation). Use getByRole / getByLabel for selectors.
 
 ## Where this goes next
 
-- **Doc 17** — Tooling and shipping; some test patterns relate to CI/CD setup.
-- **Doc 18** — Auth flows; testing forms with auth is one of the highest-value cases.
+- **Doc 19** — Tooling and shipping; some test patterns relate to CI/CD setup.
+- **Doc 20** — Auth flows; testing forms with auth is one of the highest-value cases.

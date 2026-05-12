@@ -1,4 +1,4 @@
-# 20 — File uploads
+# 22 — File uploads
 
 ## What you're learning & why it matters
 
@@ -294,7 +294,7 @@ write a small UploadField component that:
 - Uploads via DirectUpload
 - Stores the resulting signed_id in a hidden form field
 - Shows progress
-The form submit (hooked to react-hook-form, doc 12) sends signed_id along
+The form submit (hooked to react-hook-form, doc 14) sends signed_id along
 with other fields.
 ```
 
@@ -329,5 +329,5 @@ with other fields.
 
 ## Where this goes next
 
-- **Doc 21** — Drag-and-drop more generally (sortable lists, kanban). The dropzone here is a special case.
-- **Doc 22** — Animations, often paired with file lists for nice add/remove transitions.
+- **Doc 23** — Drag-and-drop more generally (sortable lists, kanban). The dropzone here is a special case.
+- **Doc 24** — Animations, often paired with file lists for nice add/remove transitions.

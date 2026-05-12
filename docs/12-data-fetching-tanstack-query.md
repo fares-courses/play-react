@@ -1,4 +1,4 @@
-# 11 — Data fetching with TanStack Query
+# 12 — Data fetching with TanStack Query
 
 ## What you're learning & why it matters
 
@@ -233,7 +233,7 @@ useQuery({ queryKey: ["users", { page }], queryFn: () => fetchUsers(page) });
 ```
 Use `keepPreviousData: true` (or `placeholderData: previousData` in newer versions) so the previous page is shown while the next loads.
 
-**4. Validation errors from Rails (422 with field errors).** Throw a structured error from queryFn/mutationFn so your form can map errors back to fields. Doc 12 covers this with react-hook-form.
+**4. Validation errors from Rails (422 with field errors).** Throw a structured error from queryFn/mutationFn so your form can map errors back to fields. Doc 14 covers this with react-hook-form.
 
 ## How to use this doc with an agent
 
@@ -314,6 +314,6 @@ This is the layer I'll actually copy into real projects.
 
 ## Where this goes next
 
-- **Doc 12** — Forms, where mutations and field-level error handling come together.
-- **Doc 13** — Suspense + Error Boundaries, the modern way to handle loading/error states declaratively (TanStack Query supports Suspense mode).
-- **Doc 18** — Auth flows, including how to attach tokens to all queries.
+- **Doc 14** — Forms, where mutations and field-level error handling come together.
+- **Doc 15** — Suspense + Error Boundaries, the modern way to handle loading/error states declaratively (TanStack Query supports Suspense mode).
+- **Doc 20** — Auth flows, including how to attach tokens to all queries.

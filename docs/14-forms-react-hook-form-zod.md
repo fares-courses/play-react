@@ -1,4 +1,4 @@
-# 12 — Forms with react-hook-form + Zod
+# 14 — Forms with react-hook-form + Zod
 
 ## What you're learning & why it matters
 
@@ -288,6 +288,6 @@ error banner.
 
 ## Where this goes next
 
-- **Doc 13** — Error boundaries and loading UX, including for form-level errors.
-- **Doc 18** — Auth flows, where you'll build a login form with this exact stack.
-- **Doc 20** — File uploads, which add their own form-handling wrinkles.
+- **Doc 15** — Error boundaries and loading UX, including for form-level errors.
+- **Doc 20** — Auth flows, where you'll build a login form with this exact stack.
+- **Doc 22** — File uploads, which add their own form-handling wrinkles.

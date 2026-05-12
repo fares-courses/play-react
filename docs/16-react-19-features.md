@@ -1,4 +1,4 @@
-# 14 — React 19: `use()`, Actions, `useOptimistic`, `useTransition`
+# 16 — React 19: `use()`, Actions, `useOptimistic`, `useTransition`
 
 ## What you're learning & why it matters
 
@@ -9,7 +9,7 @@ You're learning the new primitives in React 19 that change how you write data fl
 - **`useOptimistic`** — update UI optimistically while a mutation is in flight.
 - **`useActionState`** — connect a form's submit handler to its UI state without manual flags.
 
-These complement Suspense and error boundaries (doc 13) and overlap somewhat with TanStack Query patterns. They're not always replacements — but they reduce a lot of boilerplate when used correctly.
+These complement Suspense and error boundaries (doc 15) and overlap somewhat with TanStack Query patterns. They're not always replacements — but they reduce a lot of boilerplate when used correctly.
 
 ### Terms first
 
@@ -41,9 +41,9 @@ function MessageDisplay({ messagePromise }: { messagePromise: Promise<string> })
 </Suspense>
 ```
 
-The component reads `message` as if it were sync. While the promise is pending, the component suspends; Suspense (doc 13) shows the fallback.
+The component reads `message` as if it were sync. While the promise is pending, the component suspends; Suspense (doc 15) shows the fallback.
 
-When this is useful: simple "load this one thing" patterns where you don't need TanStack Query's caching/invalidation. For most real apps, prefer Query — but `use()` is great inside Server Components (doc 15) where the promise is created on the server.
+When this is useful: simple "load this one thing" patterns where you don't need TanStack Query's caching/invalidation. For most real apps, prefer Query — but `use()` is great inside Server Components (doc 17) where the promise is created on the server.
 
 ### Reading context conditionally
 
@@ -126,11 +126,11 @@ function Chat({ messages, sendMessage }: Props) {
 
 `useOptimistic` gives you a "fork" of the real state. While an action is in flight, the optimistic state shows the predicted result. When the real state catches up (e.g., from a refetch), the optimistic layer disappears.
 
-Compared to TanStack Query's `onMutate`/`onError` optimistic pattern (doc 11): `useOptimistic` is simpler but doesn't handle rollback or cache invalidation — those are still TanStack Query's job. They're complementary, not redundant.
+Compared to TanStack Query's `onMutate`/`onError` optimistic pattern (doc 12): `useOptimistic` is simpler but doesn't handle rollback or cache invalidation — those are still TanStack Query's job. They're complementary, not redundant.
 
 ## `useActionState` — form submit + pending state in one hook
 
-In doc 12 you wired up `isSubmitting` manually. `useActionState` does that automatically for forms.
+In doc 14 you wired up `isSubmitting` manually. `useActionState` does that automatically for forms.
 
 ```tsx
 import { useActionState } from "react";
@@ -162,7 +162,7 @@ The action function receives `(prevState, formData)` and returns the new state. 
 
 Pairs naturally with `useOptimistic` for "send chat message" UI.
 
-When to use vs react-hook-form: `useActionState` is light and pairs well with simple forms, especially in Server Components (doc 15). For complex client forms with rich validation, react-hook-form + Zod is still better. They can coexist in the same app.
+When to use vs react-hook-form: `useActionState` is light and pairs well with simple forms, especially in Server Components (doc 17). For complex client forms with rich validation, react-hook-form + Zod is still better. They can coexist in the same app.
 
 ## `useFormStatus` — pending state inside a form
 
@@ -252,8 +252,8 @@ TanStack Query equivalent, or both?
 
 **3. Pattern combination:**
 ```
-Build a Todos UI combining: Suspense + ErrorBoundary (doc 13), useSuspenseQuery
-for the initial load (doc 11), useOptimistic for adding/toggling, and
+Build a Todos UI combining: Suspense + ErrorBoundary (doc 15), useSuspenseQuery
+for the initial load (doc 12), useOptimistic for adding/toggling, and
 useTransition for filter switching. Show me the layered architecture.
 ```
 
@@ -286,6 +286,6 @@ useTransition for filter switching. Show me the layered architecture.
 
 ## Where this goes next
 
-- **Doc 15** — Server Components, where these primitives reach their full power.
-- **Doc 18** — Auth flows, including login forms with `useActionState`.
-- **Doc 19** — WebSockets, where `useOptimistic` shines for chat-like UIs.
+- **Doc 17** — Server Components, where these primitives reach their full power.
+- **Doc 20** — Auth flows, including login forms with `useActionState`.
+- **Doc 21** — WebSockets, where `useOptimistic` shines for chat-like UIs.

@@ -132,7 +132,7 @@ On render 2 with `enabled=false`, only `useState(false)` runs. React thinks the 
 
 This is the core mechanism. The "top-level only" rule is what guarantees call order is stable.
 
-(Side note: you may have seen [doc 14](./14-react-19-features.md) mention `use()` — which can be called inside `if`. That hook is special: it has a different mechanism. It's the *only* exception. Every other hook follows the rules above.)
+(Side note: you may have seen [doc 16](./16-react-19-features.md) mention `use()` — which can be called inside `if`. That hook is special: it has a different mechanism. It's the *only* exception. Every other hook follows the rules above.)
 
 ## The ESLint rule (turn it on, leave it on)
 
@@ -172,12 +172,12 @@ Here's the full list of React's built-in hooks, with one-liners. Each gets prope
 
 ### React 19 additions
 
-- **`use()`** — read a promise or context inline; the only hook that can be called conditionally. Doc 14.
-- **`useTransition`** — mark state updates as low-priority. Doc 14.
-- **`useDeferredValue`** — defer rendering of a value to keep UI responsive. Doc 14.
-- **`useOptimistic`** — manage optimistic UI updates. Doc 14.
-- **`useActionState`** — connect form actions to UI state. Doc 14.
-- **`useFormStatus`** (from `react-dom`) — read pending state of a parent `<form>`. Doc 14.
+- **`use()`** — read a promise or context inline; the only hook that can be called conditionally. Doc 16.
+- **`useTransition`** — mark state updates as low-priority. Doc 16.
+- **`useDeferredValue`** — defer rendering of a value to keep UI responsive. Doc 16.
+- **`useOptimistic`** — manage optimistic UI updates. Doc 16.
+- **`useActionState`** — connect form actions to UI state. Doc 16.
+- **`useFormStatus`** (from `react-dom`) — read pending state of a parent `<form>`. Doc 16.
 
 You don't need to remember this list. You'll meet each one in context.
 

@@ -411,7 +411,7 @@ Always have DevTools open during learning. Open with `F12` or right-click → In
 
 - **Generating component skeletons.** Give it a component spec and you get 80% of the code instantly.
 - **TypeScript types.** Describe your data shape; it generates correct prop types and Zod schemas.
-- **Patterns.** "Use the AuthContext + RequireAuth + api() pattern from doc 18" — it reads the prompt and produces code consistent with the pattern.
+- **Patterns.** "Use the AuthContext + RequireAuth + api() pattern from doc 20" — it reads the prompt and produces code consistent with the pattern.
 - **Debugging with logs.** "Add console.logs at every render and inside effects; show me what's happening" — very effective.
 - **Explaining existing code.** Paste unfamiliar code, ask "explain this like I know backend but not React."
 

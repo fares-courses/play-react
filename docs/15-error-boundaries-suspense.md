@@ -1,4 +1,4 @@
-# 13 — Error boundaries, Suspense, and loading UX
+# 15 — Error boundaries, Suspense, and loading UX
 
 ## What you're learning & why it matters
 
@@ -40,7 +40,7 @@ If `<UserProfile>` (or anything inside it) is waiting on data, the spinner shows
 What can suspend?
 
 1. **Lazy components** — `lazy(() => import("./Foo"))` suspends while the chunk loads (you saw this in doc 10).
-2. **Suspense-enabled data fetching.** TanStack Query has a Suspense mode, and React 19's `use()` hook (doc 14) suspends on unresolved promises.
+2. **Suspense-enabled data fetching.** TanStack Query has a Suspense mode, and React 19's `use()` hook (doc 16) suspends on unresolved promises.
 
 ### Why this is better than `if (isLoading)`
 
@@ -183,7 +183,7 @@ function UserCardSkeleton() {
 
 When you change a query's input (e.g., switching pages), you don't want the new data to "suspend" — you want the old UI to stay until the new data arrives.
 
-`useTransition` (we'll cover properly in doc 14) marks an update as low-priority and tells React to keep showing the old UI:
+`useTransition` (we'll cover properly in doc 16) marks an update as low-priority and tells React to keep showing the old UI:
 
 ```tsx
 const [isPending, startTransition] = useTransition();
@@ -241,7 +241,7 @@ boundaries. Avoid both extremes (one big boundary; boundary per leaf).
 3. Where don't error boundaries reach — what kinds of errors do they NOT catch?
 4. Why do nested Suspense boundaries produce a better UX than one top-level boundary?
 5. What's the role of `useSuspenseQuery` vs `useQuery`?
-6. What does `useTransition` (doc 14) help with in the context of route or filter changes?
+6. What does `useTransition` (doc 16) help with in the context of route or filter changes?
 
 ## Footguns
 
@@ -263,5 +263,5 @@ boundaries. Avoid both extremes (one big boundary; boundary per leaf).
 
 ## Where this goes next
 
-- **Doc 14** — React 19 features. `use()`, `useTransition`, `useOptimistic`, `useActionState` — many of which complement Suspense.
-- **Doc 15** — Server Components, where Suspense becomes first-class and the patterns scale up.
+- **Doc 16** — React 19 features. `use()`, `useTransition`, `useOptimistic`, `useActionState` — many of which complement Suspense.
+- **Doc 17** — Server Components, where Suspense becomes first-class and the patterns scale up.

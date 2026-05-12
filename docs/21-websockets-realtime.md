@@ -1,4 +1,4 @@
-# 19 — WebSockets and real-time
+# 21 — WebSockets and real-time
 
 ## What you're learning & why it matters
 
@@ -217,7 +217,7 @@ Best of both: initial load + pagination via Query, live updates via WebSocket pu
 
 ## Combining with `useOptimistic`
 
-Send a message, see it appear instantly, replaced by the server's authoritative version when the WS echoes it back. Doc 14's `useOptimistic` is perfect for this. Server-confirmed message replaces optimistic placeholder.
+Send a message, see it appear instantly, replaced by the server's authoritative version when the WS echoes it back. Doc 16's `useOptimistic` is perfect for this. Server-confirmed message replaces optimistic placeholder.
 
 ## How to use this doc with an agent
 
@@ -299,5 +299,5 @@ that matter and write code that passes them.
 
 ## Where this goes next
 
-- **Doc 20** — File uploads, where progress events are real-time-ish but use different APIs.
-- **Doc 22** — Animations, often used with real-time UIs to soften incoming-data UX.
+- **Doc 22** — File uploads, where progress events are real-time-ish but use different APIs.
+- **Doc 24** — Animations, often used with real-time UIs to soften incoming-data UX.

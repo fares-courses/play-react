@@ -1,4 +1,4 @@
-# 17 — Tooling, accessibility, and shipping
+# 19 — Tooling, accessibility, and shipping
 
 ## What you're learning & why it matters
 
@@ -113,13 +113,13 @@ Custom modal/dropdown code is one of the most common sources of a11y bugs. Use a
 - **axe DevTools** browser extension — runs accessibility audits on the page.
 - **Lighthouse** (Chrome DevTools → Lighthouse tab) — a11y + performance + SEO scores.
 
-## Internationalization (briefly — doc 23 goes deep)
+## Internationalization (briefly — doc 25 goes deep)
 
-If your app needs to support multiple languages, set that up early. Retrofitting translations to a hardcoded-strings codebase is painful. We cover the full setup in doc 23.
+If your app needs to support multiple languages, set that up early. Retrofitting translations to a hardcoded-strings codebase is painful. We cover the full setup in doc 25.
 
 ## Error monitoring in production
 
-Even with error boundaries (doc 13), you want to know when users hit errors. Plug in **Sentry** or similar:
+Even with error boundaries (doc 15), you want to know when users hit errors. Plug in **Sentry** or similar:
 
 ```tsx
 import * as Sentry from "@sentry/react";
@@ -253,4 +253,4 @@ separate Rails API at api.myapp.com. Walk me through:
 
 ## Where this goes next
 
-- **Doc 18** — Auth flows. Where production concerns (cookies vs tokens, refresh, route guards) get real.
+- **Doc 20** — Auth flows. Where production concerns (cookies vs tokens, refresh, route guards) get real.

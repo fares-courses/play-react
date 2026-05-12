@@ -153,16 +153,16 @@ The principle: **state lives at the lowest common ancestor of all components tha
 
 **Many distant components need it?** Then you reach for Context (doc 08) or an external store. **Don't reach here first.** Most state should not be global.
 
-**State that's actually data from the server (users, posts, etc.)?** That's not "state" in the same sense — it's a cache of remote data. It belongs in a data-fetching library like TanStack Query (doc 11). Don't put server data in `useState` and don't manually keep it in sync. This is one of the highest-leverage rules in modern React.
+**State that's actually data from the server (users, posts, etc.)?** That's not "state" in the same sense — it's a cache of remote data. It belongs in a data-fetching library like TanStack Query (doc 12). Don't put server data in `useState` and don't manually keep it in sync. This is one of the highest-leverage rules in modern React.
 
 So we have roughly four buckets of state:
 
 | Kind | Example | Where it lives |
 |---|---|---|
 | Local UI state | "is this dropdown open" | `useState` in the component |
-| Form state | input values, validation errors | `useReducer` or react-hook-form (doc 12) |
+| Form state | input values, validation errors | `useReducer` or react-hook-form (doc 14) |
 | Shared client state | theme, current locale, auth user | Context or external store (doc 08) |
-| Server cache | the list of users from your Rails API | TanStack Query (doc 11) |
+| Server cache | the list of users from your Rails API | TanStack Query (doc 12) |
 
 Knowing which bucket a piece of data falls into is half the battle.
 
@@ -327,7 +327,7 @@ need to be state at all). Justify each:
 - **Reading state immediately after setting it.** `setX(5); console.log(x)` logs the old value. State updates are async; the new value is visible in the next render.
 - **Putting everything in one giant `useState({...})` object.** You then have to spread it on every update and changing one field re-renders everything that uses the object. Either split into multiple `useState` calls or graduate to `useReducer`.
 - **Lifting state up too aggressively.** Every piece of state that gets lifted causes the lifting parent (and all its descendants) to re-render on changes. Lift only as high as truly necessary.
-- **Treating server data as local state.** You set it once on fetch, forget it can become stale, and now your UI shows yesterday's data forever. Use a real data layer (doc 11).
+- **Treating server data as local state.** You set it once on fetch, forget it can become stale, and now your UI shows yesterday's data forever. Use a real data layer (doc 12).
 - **Closure-captured stale state in async callbacks.** If a `setTimeout` reads `count`, it sees the value from when it was scheduled, not the current one. Use the updater function form, or a ref (doc 07), or restructure.
 
 ## Ask-the-agent cheatsheet
@@ -342,4 +342,4 @@ need to be state at all). Justify each:
 
 - **Doc 06** — Effects. The other half of "where logic lives in a component," and the place where stale-state bugs reach their final form.
 - **Doc 08** — Context, for state that genuinely needs to be shared widely.
-- **Doc 11** — TanStack Query, for server data that should never be in `useState`.
+- **Doc 12** — TanStack Query, for server data that should never be in `useState`.
