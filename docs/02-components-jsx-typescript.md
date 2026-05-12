@@ -1,6 +1,6 @@
 # 02 — Components, JSX, and TypeScript for props
 
-## What you're learning & why it matters
+## 1) What you're learning & why it matters
 
 You're learning the three things you'll use in every single React file you ever write:
 
@@ -10,7 +10,7 @@ You're learning the three things you'll use in every single React file you ever 
 
 Why this matters: in doc 01 you learned the runtime model (`UI = f(state)`). This doc is about the **shape of the function** — what it takes as input, what it returns, and how to lock that down with types. Most "the agent generated something subtly wrong" moments are caught by good prop types. They're cheap insurance.
 
-## A short TypeScript primer for backend devs
+## 2) A short TypeScript primer for backend devs
 
 You're going to see TS syntax throughout the course. Here's the 20% that covers 80% of React work. Skim it; you don't need to memorize.
 
@@ -59,7 +59,7 @@ The pipe `|` means "any one of these." Powerful for component variants — a But
 
 That's enough TS to read this whole course. Other syntax gets defined as it appears.
 
-## Components: what they actually are
+## 3) Components: what they actually are
 
 A **component** in modern React is a JavaScript function that:
 1. Takes one argument: an object called **props** (short for "properties" — the inputs to the component).
@@ -109,7 +109,7 @@ function Greeting({ name, excited = false }: GreetingProps) {
 ```
 Notice `excited = false` — that's a default value if the caller doesn't pass `excited`. And `excited && "!"` is a JS idiom: if `excited` is true, evaluate to `"!"`; otherwise evaluate to `false`. React renders strings, but it ignores `false`/`null`/`undefined`. So this conditionally appends a `!`.
 
-## JSX: the HTML-looking thing
+### JSX: the HTML-looking thing
 
 **JSX** is the syntax that lets you write `<button>Click</button>` inside JavaScript. It is **not** HTML. It's a syntax extension to JavaScript that compiles to function calls. Under the hood:
 
@@ -124,7 +124,7 @@ That `createElement` call returns a plain JavaScript object — a description of
 
 You almost never call `createElement` directly. You write JSX. But it helps to know that's what's happening, because it explains the rules:
 
-### JSX rules that catch you off guard coming from HTML
+#### JSX rules that catch you off guard coming from HTML
 
 - **`class` is `className`.** `class` is a reserved word in JavaScript, so React renamed it.
 - **`for` is `htmlFor`.** Same reason.
@@ -134,7 +134,7 @@ You almost never call `createElement` directly. You write JSX. But it helps to k
 - **Strings vs expressions in props.** `<input type="text" />` is a string literal. `<input type={someVariable} />` is an expression. Use quotes for static strings, braces for dynamic values.
 - **You can only return one root element from a component.** If you need to return multiple siblings without a wrapper, use a **Fragment**: `<>...</>`. It's an empty tag that groups children without adding a DOM node.
 
-### What can go inside `{}`
+#### What can go inside `{}`
 
 Anything that's a JavaScript expression — meaning anything that *evaluates to a value*. Statements like `if` or `for` don't work directly inside JSX. You'll use these patterns:
 
@@ -158,7 +158,7 @@ The `key` prop is required for lists — it's how React identifies which item is
 `key` is a built-in React prop — you don't declare it in your Props type.
 
 
-## Children: components nesting components
+### Children: components nesting components
 
 Components can take other JSX as a special prop called `children`. This is how composition works.
 
@@ -190,7 +190,7 @@ This is how UI gets composed: small components take `children` and wrap them. A 
 
 You don't pass children as a normal attribute like title. Instead, you place the content
 
-## Typing event handlers
+### Typing event handlers
 
 Common props that accept functions:
 
@@ -213,7 +213,7 @@ function MyInput() {
 ```
 You won't memorize these event types — you'll let the agent generate them, or hover the prop in your editor and copy the type from the tooltip. The pattern is `React.SomethingEvent<HTMLSomethingElement>`.
 
-## How to use this doc with an agent
+## 4) How to use this doc with an agent
 
 **1. Generate the lesson:**
 ```
@@ -259,7 +259,7 @@ what React.ReactNode means, when to use union types vs string for a prop,
 and one footgun. Stop after 5 questions.
 ```
 
-## Checkpoints
+## 5) Checkpoints
 
 1. What does JSX compile to under the hood? Why does that matter for understanding the rules (e.g. why `class` is `className`)?
 2. What's the difference between `<Greeting name="Fares" />` and calling `Greeting({ name: "Fares" })` directly? (Trick — they're nearly equivalent.)
@@ -268,7 +268,7 @@ and one footgun. Stop after 5 questions.
 5. What's the type for "any valid React child," and where do you typically use it?
 6. Why does each item in a `.map()`-rendered list need a `key`, and why is using the array index dangerous?
 
-## Footguns
+## 6) Footguns
 
 - **Forgetting `key` on list items.** React warns you in the console, but it's easy to ignore. Use a stable unique ID. Array index works only if the list never reorders, never gets items inserted/removed in the middle, and never filters. In practice, just always use a real ID.
 - **Returning multiple sibling elements without a wrapper.** A component must return one root. If you don't want an extra `<div>`, use a Fragment: `<>...</>`.
@@ -277,7 +277,7 @@ and one footgun. Stop after 5 questions.
 - **Reaching for `any` when types feel hard.** `any` turns off type checking for that value and quietly poisons everything it touches. If you don't know the type, use `unknown` (forces you to narrow before using it) or ask the agent to type it properly. The whole point of TS is to catch the agent's mistakes — `any` defeats that.
 - **Inline object/array props recreate on every render.** `<Foo style={{ color: "red" }} />` creates a new object every render. Usually fine, but it can break memoization (doc 09). Worth knowing exists; don't preemptively optimize.
 
-## Ask-the-agent cheatsheet
+## 6) Ask-the-agent cheatsheet
 
 - *"Generate a `<Foo>` component with strict TypeScript types. Define a separate `type FooProps` and use it as the parameter annotation. No `any`."*
 - *"This prop should only accept these specific values: A, B, C. Use a union of string literals."*
@@ -285,7 +285,7 @@ and one footgun. Stop after 5 questions.
 - *"Refactor this so any styling logic for variants lives inside the component, not in the caller."*
 - *"This component is taking too many props. Help me identify which ones could be replaced by `children` for better composition."*
 
-## Where this goes next
+## 7) Where this goes next
 
 - **Doc 03** — Composition patterns. Once you've got components and JSX down, the next leap is patterns for composing them: `children`, slots, compound components, render props. This is how real component libraries are built.
 - **Doc 04** — Hooks: the concept. The rules and mental model that govern every hook you'll meet from doc 05 onward.
