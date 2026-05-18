@@ -12,7 +12,7 @@ This is not a traditional tutorial. It's a **learning-by-understanding course** 
 
 Perfect if you already know backend APIs, databases, and job queues, but are new to frontend.
 
-## Course Structure: 23 Docs + Intro
+## Course Structure: 25 Docs + Intro
 
 **Read in order:**
 
@@ -35,27 +35,29 @@ Perfect if you already know backend APIs, databases, and job queues, but are new
 - **08 — Context & external stores** — When to use Context, Zustand, splitting stores
 - **09 — Performance, memo, React Compiler** — What to measure, when to memoize, profiling
 
-### Real Apps (Docs 10–13)
+### Real Apps (Docs 10–15)
 - **10 — Routing** — React Router, URL as state, lazy-loading, route guards
-- **11 — Data fetching with TanStack Query** — Caching, mutations, optimistic UI, Rails API patterns
-- **12 — Forms** — react-hook-form + Zod, server validation errors, Rails integration
-- **13 — Error boundaries & Suspense** — Loading states, error UI, declarative data handling
+- **11 — Redux Toolkit & Redux Thunk** — Slices, reducers, async thunks, RTK Query, DevTools
+- **12 — Data fetching with TanStack Query** — Caching, mutations, optimistic UI, Rails API patterns
+- **13 — Forms with Formik + Yup** — Controlled forms, field-level validation, Yup schemas, Rails errors
+- **14 — Forms with react-hook-form + Zod** — Uncontrolled forms, Zod type-safe schemas, server validation
+- **15 — Error boundaries & Suspense** — Loading states, error UI, declarative data handling
 
-### Modern React (Docs 14–15)
-- **14 — React 19 features** — `use()`, `useOptimistic`, `useTransition`, `useActionState`
-- **15 — Server Components mental model** — Why RSC exists, when to use it, server vs client boundary
+### Modern React (Docs 16–17)
+- **16 — React 19 features** — `use()`, `useOptimistic`, `useTransition`, `useActionState`
+- **17 — Server Components mental model** — Why RSC exists, when to use it, server vs client boundary
 
-### Production Concerns (Docs 16–17)
-- **16 — Testing** — Vitest + React Testing Library + Playwright, what to test
-- **17 — Tooling, accessibility, shipping** — Vite internals, a11y basics, deployment, bundle size
+### Production Concerns (Docs 18–19)
+- **18 — Testing** — Vitest + React Testing Library + Playwright, what to test
+- **19 — Tooling, accessibility, shipping** — Vite internals, a11y basics, deployment, bundle size
 
-### Specialized Topics (Docs 18–23)
-- **18 — Auth flows** — Tokens vs cookies, refresh, route guards, Rails API integration
-- **19 — WebSockets & real-time** — native WS, Socket.IO, ActionCable, subscriptions
-- **20 — File uploads** — multipart, direct-to-S3, ActiveStorage, progress bars
-- **21 — Drag-and-drop** — dnd-kit, sortable lists, compound DnD components
-- **22 — Animations** — CSS transitions vs Motion, gesture animations, layout animations
-- **23 — Internationalization** — i18next, RTL, Intl API, locale-aware formatting
+### Specialized Topics (Docs 20–25)
+- **20 — Auth flows** — Tokens vs cookies, refresh, route guards, Rails API integration
+- **21 — WebSockets & real-time** — native WS, Socket.IO, ActionCable, subscriptions
+- **22 — File uploads** — multipart, direct-to-S3, ActiveStorage, progress bars
+- **23 — Drag-and-drop** — dnd-kit, sortable lists, compound DnD components
+- **24 — Animations** — CSS transitions vs Motion, gesture animations, layout animations
+- **25 — Internationalization** — i18next, RTL, Intl API, locale-aware formatting
 
 ## How to Use This Course
 
@@ -107,14 +109,14 @@ docs/
   00-how-to-use-this-course.md
   01-mental-model.md
   ...
-  23-internationalization.md
+  25-internationalization.md
 
 src/
   lessons/
     01-mental-model/           ← You'll create these with an agent
     02-components/
     ...
-    23-i18n/
+    25-i18n/
   App.tsx                       ← Mount lessons here while learning
   main.tsx
 
