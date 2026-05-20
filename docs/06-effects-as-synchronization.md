@@ -6,19 +6,49 @@ You're learning `useEffect`, which is the most-misused hook in React. Most React
 
 If you walk away with one thing from this doc: **effects are not "do this when the component mounts." They are "keep this external thing synchronized with my state."** That mental shift fixes 90% of effect bugs.
 
-### Terms first
+---
+
+## The modern rule of thumb: Hook-Last philosophy
+
+In modern React, the general rule is: **you will use `useEffect`, but much less than you think.**
+
+Early on, developers used `useEffect` for everything. Today, the React team pushes a "Hook-Last" approach. Before reaching for `useEffect`, ask:
+
+1. **Can I do this in an `onClick` (or any event handler)?** If yes, do it there.
+2. **Is there a library (like TanStack Query) that does this?** If yes, use it.
+3. **Is this just calculating a value based on state/props?** If yes, compute it in the render body.
+4. **If all else fails:** use `useEffect` — but make sure your dependency array is correct.
+
+This isn't "avoid effects at all costs." It's "effects solve a specific problem — synchronizing with external systems — and you should only use them for that."
+
+---
+
+## Terms first
 
 - **Side effect**: anything a function does besides return a value — network requests, timers, DOM manipulation outside React, subscriptions, logging to a server, writing to localStorage.
 - **External system**: anything that lives outside React's render cycle — the browser DOM, a WebSocket, the network, `localStorage`, a third-party widget.
 - **Mount / unmount**: when a component instance first appears on screen (mount) and when it's removed (unmount). Between those, it can re-render any number of times.
 - **Cleanup**: a function you return from your effect that React runs before the next effect run (or on unmount). Used to undo subscriptions, abort requests, clear timers.
 - **Dependency array**: the second argument to `useEffect`. A list of values; if any of them change between renders, React re-runs the effect.
+- **Stale closure**: when your effect captures a variable's old value because the effect didn't re-run after the variable changed.
+
+---
 
 ## The mental model
 
 > **Effects synchronize a piece of external state with your React state.** They are not lifecycle hooks; they're saying "given my current state, the outside world should look like *this*."
 
+Before writing an effect, ask yourself: **"What external system am I synchronizing?"**
+
+- Connecting to a WebSocket? External system = the socket.
+- Setting `document.title`? External system = the browser tab title.
+- Fetching a user profile? That's data fetching — use TanStack Query (doc 12), not an effect.
+
+If you can't name the external system, you probably don't need an effect.
+
 Compare to your backend life: a Sidekiq worker watches a queue and reacts to changes. An effect is similar — it watches your component's state (via the dependency array) and reacts by updating something external. You don't think of a Sidekiq worker as "the worker that runs when the app starts" — you think of it as "the thing that keeps state X consistent with state Y." That's the right frame for effects.
+
+---
 
 ## The shape of `useEffect`
 
@@ -37,16 +67,38 @@ useEffect(() => {
 Three pieces:
 
 1. **Setup function** — runs after React commits the render to the DOM.
-2. **Cleanup function** (optional) — runs before the next setup, and on unmount.
+2. **Cleanup function** (optional but usually needed) — runs before the next setup, and on unmount.
 3. **Dependency array** — controls when the effect re-runs.
 
-### How the dependency array works
+### When does each piece run?
 
-- `[]` (empty) — effect runs once after mount, cleanup runs once on unmount.
-- `[a, b]` — effect runs after mount AND any time `a` or `b` change between renders.
-- *omitted entirely* — effect runs after every render (almost always wrong).
+Here's the full lifecycle with a concrete example — a `ChatRoom` component that connects to a room:
 
-React compares dependencies with `Object.is` (basically `===`). So if you pass an object or array as a dependency and you recreate it on every render, the effect runs every render even if nothing meaningful changed.
+```
+Component mounts with roomId="general"
+  → setup runs: connect to "general"
+
+roomId prop changes to "random"
+  → cleanup runs: disconnect from "general"
+  → setup runs: connect to "random"
+
+Component unmounts
+  → cleanup runs: disconnect from "random"
+```
+
+This is what "synchronization" means. React ensures the external system (the connection) always reflects the current state (`roomId`).
+
+### How the dependency array controls re-runs
+
+| Dependency array | When effect runs |
+|---|---|
+| `[]` (empty) | Once after mount; cleanup once on unmount |
+| `[a, b]` | After mount + any time `a` or `b` change |
+| *(omitted entirely)* | After every render (almost always wrong) |
+
+React compares dependencies with `Object.is` (basically `===`). So if you pass an object or array as a dependency and you recreate it on every render, the effect runs every render even if nothing meaningful changed. More on this below.
+
+---
 
 ## A worked example: synchronizing with a chat room
 
@@ -63,7 +115,7 @@ function ChatRoom({ roomId }: { roomId: string }) {
 }
 ```
 
-Read this as: *"At any moment, the connection should match the current `roomId`."* That's the synchronization frame. React is responsible for making it true:
+Read this as: *"At any moment, the connection should match the current `roomId`."* React makes it true:
 
 - On mount: connect to `roomId`.
 - If `roomId` changes from `"general"` to `"random"`: clean up (disconnect from `"general"`), then setup again (connect to `"random"`).
@@ -71,52 +123,130 @@ Read this as: *"At any moment, the connection should match the current `roomId`.
 
 The cleanup isn't an afterthought. It's half the effect. **An effect without cleanup is usually a bug** — if you set something up, you should be able to tear it down.
 
+---
+
 ## Why your effect runs twice in development (Strict Mode)
 
-React's Strict Mode (on by default in new projects) deliberately mounts → unmounts → mounts every component once in development. Your effect runs setup → cleanup → setup. This isn't a bug; it's React stress-testing your cleanup logic. If your effect breaks when run twice, your effect has a missing cleanup. Fix the effect, don't disable Strict Mode.
+React's Strict Mode (on by default in new projects) deliberately mounts → unmounts → mounts every component once in development. Your effect runs setup → cleanup → setup.
 
-## When you actually need an effect — and when you don't
+This is intentional. React is stress-testing your cleanup logic. If your effect breaks when run twice, you have a missing cleanup. Fix the effect, don't disable Strict Mode.
+
+**Example of what you'll see in the console:**
+```
+connect to general    ← first mount (Strict Mode)
+disconnect from general ← Strict Mode unmounts
+connect to general    ← real mount
+```
+
+In production this only happens once. Strict Mode reveals the bug before it reaches users.
+
+---
+
+## When you do need an effect
+
+`useEffect` is the right tool when you're connecting to something **outside React**:
+
+- **Manual DOM manipulation** — using a third-party library that needs a DOM node (D3.js charts, Google Maps, video players).
+- **Subscriptions** — setting up a WebSocket connection, subscribing to an `EventEmitter`, listening to `window` events (resize, keyboard).
+- **Browser APIs** — `IntersectionObserver`, `ResizeObserver`, geolocation, media queries.
+- **Syncing to `localStorage`** — though prefer a custom hook that wraps it.
+- **Setting `document.title`** based on current state.
+
+```tsx
+// ✅ Real use case: syncing document title with React state
+useEffect(() => {
+  document.title = `${unreadCount} new messages`;
+}, [unreadCount]);
+```
+
+---
+
+## When you do NOT need an effect
 
 This is the most important section in the whole doc.
 
-### You don't need an effect for:
+### 1. Transforming data for rendering
 
-**1. Transforming data for rendering.** Just compute it during render.
+Just compute it during render. No effect, no extra state.
+
 ```tsx
-// ❌
-useEffect(() => { setFullName(firstName + " " + lastName); }, [firstName, lastName]);
+// ❌ Unnecessary effect + state
+const [fullName, setFullName] = useState("");
+useEffect(() => {
+  setFullName(firstName + " " + lastName);
+}, [firstName, lastName]);
 
-// ✅
+// ✅ Just compute it
 const fullName = firstName + " " + lastName;
 ```
 
-**2. Handling user events.** Put the logic in the event handler.
-```tsx
-// ❌
-useEffect(() => { if (justClickedSubmit) sendForm(); }, [justClickedSubmit]);
+Why is the ❌ bad? It causes an extra render cycle: render → effect fires → state updates → render again. The ✅ is one render, no extra work.
 
-// ✅
-function handleSubmit() { sendForm(); }
+### 2. Handling user events
+
+Put the logic in the event handler. Events are explicit — you know exactly what triggered them.
+
+```tsx
+// ❌ Using effect to react to a "just clicked" flag
+useEffect(() => {
+  if (justClickedSubmit) sendForm();
+}, [justClickedSubmit]);
+
+// ✅ Just call it directly
+function handleSubmit() {
+  sendForm();
+}
 ```
 
-**3. Resetting state when a prop changes.** Use a `key` prop on the component to force a remount, or compute from the prop.
+### 3. Resetting state when a prop changes
 
-**4. Setting state based on props.** Compute it during render or lift it.
+Use a `key` prop on the component to force a remount, or compute from the prop.
 
-**5. Fetching data in most cases** (use TanStack Query, doc 12). The effect-based fetch pattern is full of footguns: race conditions, stale closures, no caching, no deduplication, no retry. You can write it once correctly to learn, but in real apps, use a library.
+```tsx
+// ❌ Effect to reset state when userId changes
+useEffect(() => {
+  setComment("");
+}, [userId]);
 
-### You do need an effect for:
+// ✅ Force remount with key — React resets all state automatically
+<ProfilePage key={userId} userId={userId} />
+```
 
-- Connecting to a non-React system: WebSockets, browser APIs (geolocation, intersection observers, media queries), third-party widgets you're embedding.
-- Syncing to `localStorage` (though prefer a custom hook that wraps it).
-- Setting `document.title` based on current state.
-- Subscribing to events from outside React (window resize, keyboard shortcuts, real-time pushes).
+### 4. Fetching data (in most real apps)
 
-If you can't answer "what external system am I synchronizing?" you probably don't need an effect.
+This one surprises people. Effect-based fetch is a footgun:
+
+```tsx
+// ❌ Common in tutorials, problematic in production
+useEffect(() => {
+  fetch(`/api/users/${id}`).then(r => r.json()).then(setUser);
+}, [id]);
+```
+
+Problems: race conditions, no caching, no deduplication, no retry, no loading/error states without manual work.
+
+```tsx
+// ✅ In professional codebases
+const { data, isLoading } = useQuery({ queryKey: ['user', id], queryFn: () => fetchUser(id) });
+```
+
+The library (`TanStack Query`, `SWR`) has already written the complex `useEffect` so you don't have to. This is why in a real-world job, you almost never write `fetch()` inside an effect directly. Doc 12 covers this.
+
+### Decision table
+
+| Task | Don't use `useEffect`... | Use this instead |
+|---|---|---|
+| **Computing a value** | `useEffect(() => setY(f(x)), [x])` | `const y = f(x)` during render |
+| **Reacting to a click** | Effect watching a flag | `onClick` handler |
+| **Data fetching** | `fetch()` in an effect | TanStack Query / SWR |
+| **Form logic** | Effect watching inputs | React Hook Form / local state |
+| **Filtering a list** | Effect to derive filtered state | `useMemo` or inline variable |
+
+---
 
 ## The dependency array — get this right
 
-Two rules:
+Two rules you must internalize:
 
 **Rule 1: Every value from component scope that the effect *uses* must be in the dependency array.** State, props, things derived from them. The ESLint rule `react-hooks/exhaustive-deps` enforces this — keep it on, do not silence it casually.
 
@@ -125,24 +255,44 @@ Two rules:
 - Memoize it with `useMemo`/`useCallback` (doc 09).
 - Restructure to depend on primitives (strings, numbers, booleans).
 
-### Example of getting it wrong
+### The object dependency trap
 
 ```tsx
 function Search({ query }: { query: string }) {
-  const options = { query, limit: 20 }; // new object every render
+  const options = { query, limit: 20 }; // ← new object every render
 
   useEffect(() => {
     fetchResults(options).then(setResults);
-  }, [options]); // ← `options` is new every render, so this fetches every render
+  }, [options]); // ← React sees a new object every render → runs every render
 }
 ```
 
-Fix: depend on the primitives.
+`Object.is({ query, limit: 20 }, { query, limit: 20 })` is `false`. They're two different objects, even with the same content. So `options` is "changed" on every render.
+
+Fix: depend on the primitives directly.
 ```tsx
 useEffect(() => {
   fetchResults({ query, limit: 20 }).then(setResults);
-}, [query]); // 20 is a constant, doesn't need to be a dep
+}, [query]); // ← `20` is a constant, doesn't need to be a dep
 ```
+
+### The stale closure trap
+
+```tsx
+// ❌ Stale closure: x is always the value from the first render
+useEffect(() => {
+  const t = setTimeout(() => setX(x + 1), 1000);
+  return () => clearTimeout(t);
+}, []); // x is missing from deps
+
+// ✅ Use the functional updater form — no dep needed
+useEffect(() => {
+  const t = setTimeout(() => setX(prev => prev + 1), 1000);
+  return () => clearTimeout(t);
+}, []);
+```
+
+---
 
 ## Race conditions in effects (the bug you'll write at least once)
 
@@ -152,60 +302,97 @@ useEffect(() => {
 }, [id]);
 ```
 
-User changes from id=1 to id=2 quickly. Two requests fire. Whichever responds *last* wins — even if it's the response to id=1. Now your UI shows user 1's data while displaying id=2.
+User changes from id=1 to id=2 quickly. Two requests fire. Whichever responds *last* wins — even if it's the response to id=1. Now your UI shows user 1's data while `id` is 2.
 
-Fix with a "still relevant" flag in cleanup:
+This is a race condition. Here's what happens step by step:
+```
+id=1 → fetch starts for user 1
+id=2 → fetch starts for user 2
+user 2 response arrives → setUser(user2) ✓
+user 1 response arrives → setUser(user1) ✗ overwrites!
+```
+
+Fix with `AbortController`:
+```tsx
+useEffect(() => {
+  const ctrl = new AbortController();
+  fetch(`/api/users/${id}`, { signal: ctrl.signal })
+    .then(r => r.json())
+    .then(setUser)
+    .catch(e => {
+      if (e.name !== "AbortError") throw e; // ignore expected abort errors
+    });
+  return () => ctrl.abort(); // cancel the in-flight request on cleanup
+}, [id]);
+```
+
+When `id` changes, the cleanup runs `ctrl.abort()`, cancelling the previous request before the next one starts. No stale data.
+
+Or fix with an "is this still relevant" flag:
 ```tsx
 useEffect(() => {
   let active = true;
   fetch(`/api/users/${id}`).then(r => r.json()).then(data => {
-    if (active) setUser(data);
+    if (active) setUser(data); // only update if this effect is still current
   });
   return () => { active = false; };
 }, [id]);
 ```
 
-Or use `AbortController`:
+In real apps you let TanStack Query (doc 12) handle this for you. But you should know it exists, so you can spot the bug in code that doesn't use a library.
+
+---
+
+## The library reality: effects you never write yourself
+
+When you use a library like `framer-motion`, `Apollo Client`, or `TanStack Query`, those library authors have written complex `useEffect`s so **you don't have to.** In a professional codebase your code often looks like:
+
 ```tsx
-useEffect(() => {
-  const ctrl = new AbortController();
-  fetch(`/api/users/${id}`, { signal: ctrl.signal })
-    .then(r => r.json()).then(setUser)
-    .catch(e => { if (e.name !== "AbortError") throw e; });
-  return () => ctrl.abort();
-}, [id]);
+// You call a hook from a library (which uses useEffect under the hood)
+const { data, isLoading } = useQuery({ queryKey: ['users'], queryFn: fetchUsers });
+
+// No useEffect here at all — the library handles timing, caching, deduplication
+return isLoading ? <Spinner /> : <UserList users={data} />;
 ```
 
-In real apps you let TanStack Query (doc 12) handle this for you. But you should know it exists, so you can spot the bug in code that doesn't use a library.
+This is the payoff of understanding effects correctly: you know *why* the library abstraction is better, not just that you're "supposed to use it."
+
+---
 
 ## `useEffectEvent` (React 19, useful when stable)
 
-A common pain: an effect needs to use a value, but you don't want changes to that value to retrigger the effect. Example:
+A common pain: an effect needs to *use* a value, but you don't want changes to that value to retrigger the effect.
+
 ```tsx
+// Problem: theme change causes a full reconnect, which is wrong
 useEffect(() => {
   const conn = connect(roomId);
   conn.on("message", (msg) => showNotification(msg, theme));
   return () => conn.disconnect();
-}, [roomId, theme]); // ← theme change causes a reconnect, which is wrong
+}, [roomId, theme]); // ← theme in deps = reconnect on every theme change
 ```
 
-`useEffectEvent` lets you extract the part that uses `theme` so it always sees the latest value but doesn't retrigger the effect:
+`useEffectEvent` lets you extract the part that reads `theme` so it always sees the latest value but doesn't retrigger the effect:
+
 ```tsx
 const onMessage = useEffectEvent((msg) => showNotification(msg, theme));
 
 useEffect(() => {
   const conn = connect(roomId);
-  conn.on("message", onMessage);
+  conn.on("message", onMessage); // onMessage always uses current theme
   return () => conn.disconnect();
-}, [roomId]); // theme not a dep
+}, [roomId]); // ← theme is no longer a dep
 ```
-This is one of those niche tools you don't use often, but when you need it, nothing else fits.
+
+This is a niche tool you rarely need, but when you do, nothing else fits cleanly.
+
+---
 
 ## How to use this doc with an agent
 
 **1. Build the lesson:**
 ```
-In src/lessons/05-effects/, build four examples in separate files (and an
+In src/lessons/06-effects/, build four examples in separate files (and an
 index.tsx that mounts them all):
 
 1. effect-tick.tsx: a Clock component using setInterval inside useEffect,
@@ -250,6 +437,8 @@ firing on click, setting document.title, subscribing to a websocket,
 doing a fetch on mount]
 ```
 
+---
+
 ## Checkpoints
 
 1. Why is "effects are like componentDidMount/componentDidUpdate" the wrong mental model?
@@ -259,6 +448,10 @@ doing a fetch on mount]
 5. What's a race condition in an effect, and how do you fix it without a library?
 6. What does it mean when an effect depends on an object or function and runs on every render? How do you fix that?
 7. When does `useEffectEvent` help?
+8. What question should you ask yourself before writing any `useEffect`?
+9. Why do libraries like TanStack Query mean you rarely write fetch-in-effect in real apps?
+
+---
 
 ## Footguns
 
@@ -269,6 +462,9 @@ doing a fetch on mount]
 - **Fetching in an effect without cleanup.** Race conditions on prop changes. Use AbortController, or use TanStack Query.
 - **Effect chains.** `useEffect` updates state A, which triggers another `useEffect` that updates state B, which... — you've built a Rube Goldberg machine. Compute it directly during render or in one place.
 - **Conditional `useEffect` calls.** Hooks must be called in the same order every render. Never wrap `useEffect` in an `if`. Put the condition *inside* the effect body.
+- **Stale closures.** Effect captures an old value because the dep array is incomplete. Always use the `react-hooks/exhaustive-deps` lint rule.
+
+---
 
 ## Ask-the-agent cheatsheet
 
@@ -278,8 +474,11 @@ doing a fetch on mount]
 - *"This effect depends on an inline object/function and runs every render. Restructure so it only runs when something meaningful changes."*
 - *"Replace this effect-based fetch with a TanStack Query call (doc 12 territory). Keep the loading and error states."*
 
+---
+
 ## Where this goes next
 
 - **Doc 07** — Refs, the imperative escape hatch when effects/state aren't the right tool.
+- **Doc 09** — `useMemo` / `useCallback`, which solve the "object dep recreated every render" problem.
 - **Doc 12** — TanStack Query, which makes most fetch-in-effect code obsolete.
 - **Doc 15** — Suspense, the modern way to handle loading states without manual flags.
