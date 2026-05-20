@@ -14,6 +14,56 @@ Perfect if you already know backend APIs, databases, and job queues, but are new
 
 <img width="1574" height="4263" alt="image" src="https://github.com/user-attachments/assets/0effffd9-e5aa-4c44-9d3f-e67de396f639" />
 
+---
+
+**The prompt:**
+
+> I want you to guide me in learning **[TOPIC]** by creating a series of structured documents. Each document represents a stage in the learning journey, where we explore concepts and features together with practical implementations.
+>
+> I'm a **[YOUR BACKGROUND]** engineer, so the course should be advanced and tailored accordingly. Keep in mind that I don't need to memorize everything — I'll be writing code later with the help of an agent, so the focus should be on understanding concepts and applying them effectively, not on syntax recall.
+>
+> Each document should act as a guide to the topic, clearly showing how I'll use it alongside an agent to both learn and implement the concepts.
+>
+> **Reference documentation:** Use **[DOCS URL]** as the primary source of truth throughout the course. When explaining a concept, link to the relevant section so I can go deeper if needed.
+>
+> **Core subtopics to cover:** The course must include at least the following areas:
+> - [SUBTOPIC 1]
+> - [SUBTOPIC 2]
+> - [SUBTOPIC 3]
+> - *(add as many as you need)*
+>
+> Beyond these, feel free to suggest additional subtopics or lessons you think I'm missing — especially things that are commonly overlooked by people coming from my background. Flag them clearly so I can decide whether to include them.
+>
+> Before the first lesson, write a long intro document covering the landscape of **[TOPIC]** — the famous jargon, the mental models I need upfront, and what I need to know about using AI while learning this.
+>
+> Follow this structure for every lesson:
+> 1. **Title** — `NN — <topic>`
+> 2. **What you're learning and why it matters** — one-paragraph hook, plus a "Terms first" mini-glossary for any unfamiliar jargon used in the doc
+> 3. **Mental model** — the one sentence or idea to internalize
+> 4. **Concept sections** — the actual teaching (3–8 sub-headings)
+> 5. **How to use this doc with an agent** — 3–4 numbered prompts (Build / Probe / Quiz / Refactor)
+> 6. **Checkpoints** — 5–6 questions you should be able to answer before moving on
+> 7. **Footguns** — common bugs and mistakes to watch out for
+> 8. **Ask-the-agent cheatsheet** — reusable prompt phrasings for real work
+> 9. **Where this goes next** — pointers to related later docs
+>
+> No jargon assumed. Define every domain-specific term the first time it appears — short inline definitions, not separate glossaries. Topics stay advanced, explanations stay beginner-friendly.
+>
+> Keep analogies grounded in what I actually do: **[LIST YOUR REAL WORK — e.g. API endpoints, background jobs, database models, request/response cycle]**. Avoid analogies to parts of the stack I don't touch.
+>
+> Start by proposing a list of **[N]** lessons covering the subtopics above plus any you'd suggest. I'll review the topics, confirm the order, then we write doc 00 and doc 01 first so you can calibrate tone and depth before writing the rest.
+
+---
+
+**How to fill it in:**
+
+- `[TOPIC]` → React, Kubernetes, GraphQL, TypeScript, etc.
+- `[YOUR BACKGROUND]` → Rails API, FastAPI, Go microservices, etc.
+- `[DOCS URL]` → e.g. `https://react.dev`, `https://kubernetes.io/docs`, etc.
+- `[SUBTOPIC 1..N]` → the areas you know you need to cover
+- `[LIST YOUR REAL WORK]` → the things you actually build day-to-day
+- `[N]` → however many lessons you want
+
 ## Course Structure: 25 Docs + Intro
 
 **Read in order:**
