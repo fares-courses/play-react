@@ -12,6 +12,8 @@ This is not a traditional tutorial. It's a **learning-by-understanding course** 
 
 Perfect if you already know backend APIs, databases, and job queues, but are new to frontend.
 
+<img width="1574" height="4263" alt="image" src="https://github.com/user-attachments/assets/0effffd9-e5aa-4c44-9d3f-e67de396f639" />
+
 ## Course Structure: 25 Docs + Intro
 
 **Read in order:**
