@@ -159,6 +159,41 @@ useEffect(() => {
 }, [unreadCount]);
 ```
 
+`document` here is the browser's global document object — it represents the entire HTML page. `document.title` is the text that appears in the browser tab.
+
+`unreadCount` is a React state variable defined elsewhere (probably via `useState`). When it changes, the effect runs and updates the browser tab title to show the new count.
+
+Why use `useEffect` for this?
+
+Because updating `document.title` is a side effect — it's changing something outside React's component tree. Here's the flow:
+
+`User interacts with the app` → `unreadCount` state updates
+`Component re-renders` with new `unreadCount`
+`useEffect` runs because `unreadCount` changed (it's in the dependency array)
+The effect updates `document.title` to the new count
+`Browser tab title` reflects the new number
+Why not do it directly in the component?
+
+
+❌ Wrong - runs on every render, wasteful
+```tsx
+function App({ unreadCount }) {
+  document.title = `${unreadCount} new messages`;
+  return <div>...</div>;
+}
+```
+
+✅ Right - only runs when unreadCount changes
+```tsx
+function App({ unreadCount }) {
+  useEffect(() => {
+    document.title = `${unreadCount} new messages`;
+  }, [unreadCount]);
+  return <div>...</div>;
+}
+```
+The useEffect version is cleaner because it explicitly says "when unreadCount changes, then update the title" instead of updating it on every render.
+
 ---
 
 ## When you do NOT need an effect
@@ -211,6 +246,9 @@ useEffect(() => {
 // ✅ Force remount with key — React resets all state automatically
 <ProfilePage key={userId} userId={userId} />
 ```
+`key` tells React "this is a different component instance" → all state resets automatically.
+- React sees the key change → React unmounts the old component instance completely
+- React mounts a brand new component instance
 
 ### 4. Fetching data (in most real apps)
 
@@ -383,6 +421,7 @@ useEffect(() => {
   return () => conn.disconnect();
 }, [roomId]); // ← theme is no longer a dep
 ```
+Variables inside useEffect don't automatically update. Even if they come from props or global state, you need to include them in the dependency array or use `useEffectEvent` to keep them in sync.
 
 This is a niche tool you rarely need, but when you do, nothing else fits cleanly.
 
