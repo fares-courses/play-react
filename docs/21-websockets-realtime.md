@@ -223,7 +223,7 @@ Send a message, see it appear instantly, replaced by the server's authoritative 
 
 **1. Build the lesson:**
 ```
-In src/lessons/18-websockets/, build a Chat component using:
+In src/lessons/21-websockets/, build a Chat component using:
 
 Option A (no real backend): a fake "WS" implemented as a custom hook that
 uses BroadcastChannel between tabs to simulate multi-user chat — open two

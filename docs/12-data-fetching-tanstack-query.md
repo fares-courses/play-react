@@ -239,7 +239,7 @@ Use `keepPreviousData: true` (or `placeholderData: previousData` in newer versio
 
 **1. Build the lesson (mock backend):**
 ```
-In src/lessons/10-tanstack-query/, install @tanstack/react-query and
+In src/lessons/12-tanstack-query/, install @tanstack/react-query and
 @tanstack/react-query-devtools. Set up QueryClientProvider in the lesson's
 entry. Build:
 

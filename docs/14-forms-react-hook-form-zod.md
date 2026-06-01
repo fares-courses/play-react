@@ -228,7 +228,7 @@ return (
 
 **1. Build the lesson:**
 ```
-In src/lessons/11-forms/, install react-hook-form, zod, @hookform/resolvers.
+In src/lessons/14-forms/, install react-hook-form, zod, @hookform/resolvers.
 Build a SignupForm with these fields: name (string, min 2), email, age
 (number, 18+), role (enum admin|member|guest), bio (optional textarea,
 max 500), skills (field array of {name, level: 1-5}).

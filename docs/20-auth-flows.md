@@ -298,7 +298,7 @@ function logout() {
 
 **1. Build the lesson:**
 ```
-In src/lessons/17-auth/, build a complete Bearer-token auth flow against
+In src/lessons/20-auth/, build a complete Bearer-token auth flow against
 a mocked API:
 
 1. Mock API: in-memory user store {email, password, id, name}. Endpoints

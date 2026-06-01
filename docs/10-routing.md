@@ -217,7 +217,7 @@ A wrapper component checks auth and either renders children or redirects. The `s
 
 **1. Build the lesson:**
 ```
-In src/lessons/09-routing/, set up React Router and build a small multi-page
+In src/lessons/10-routing/, set up React Router and build a small multi-page
 demo. Steps:
 
 1. npm install react-router-dom

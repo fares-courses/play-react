@@ -199,7 +199,7 @@ Or use TanStack Query's `placeholderData: keepPreviousData` to keep the previous
 
 **1. Build the lesson:**
 ```
-In src/lessons/12-suspense-errors/, install react-error-boundary. Build:
+In src/lessons/15-suspense-errors/, install react-error-boundary. Build:
 
 1. A UserProfile component that uses useSuspenseQuery to load a user.
    Mock the API: 30% chance it fails, 70% it succeeds after 600ms.

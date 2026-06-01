@@ -121,7 +121,7 @@ Library: `@tanstack/react-virtual`. Stays close to React, no bloat. Whenever a l
 
 **1. Build the lesson:**
 ```
-In src/lessons/08-performance/, build three demos:
+In src/lessons/09-performance/, build three demos:
 
 1. perf-render-cost.tsx: a parent with a counter button (causing parent
    re-renders) and a child component that takes a list as a prop. Add a

@@ -161,7 +161,98 @@ function Page() {
 }
 ```
 
-You're saying "here's a small, controlled imperative interface" — instead of leaking the entire DOM. Use sparingly. If you find yourself calling many imperative methods on a child, consider whether the child's behavior should be controlled by props instead.
+If you have a piece of data that needs to stay alive across multiple re-renders, but changing it **should not** trigger a re-render, **`useRef` is exactly what you should use.**
+
+Think of `useRef` as a **private, persistent pocket of memory** attached to that specific component.
+
+---
+
+## The Golden Rule for Choosing Between State, Refs, and Normal Variables
+
+To lock this in, ask yourself two questions when creating a variable in React:
+
+1. **Does this value change over time?**
+* *No?* Use a **constant** (`const MY_VALUE = 10;` outside the component).
+* *Yes?* Go to question 2.
+
+
+2. **Does the UI (HTML/JSX) need to update *instantly* when this value changes?**
+* **Yes?** Use **State** (`useState`).
+* **No?** Use a **Ref** (`useRef`).
+
+
+
+---
+
+## 3 Classic Real-World Examples for `useRef`
+
+Since changes to a ref are "silent" (no re-render), here are the exact situations where you will use them in professional code:
+
+### 1. Storing a Timer or Interval ID
+
+When you start a `setInterval`, it returns an ID number so you can stop it later. If you store that ID in a normal variable, it gets lost on the next render, and your timer runs forever. If you store it in state, updating it causes an unnecessary re-render.
+
+```tsx
+function Timer() {
+  const timerId = useRef<number | null>(null);
+
+  const startTimer = () => {
+    // Save the ID in the ref. No re-render happens here.
+    timerId.current = window.setInterval(() => {
+      console.log("Tick");
+    }, 1000);
+  };
+
+  const stopTimer = () => {
+    // Read the ID synchronously and clear it
+    if (timerId.current) {
+      clearInterval(timerId.current);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={startTimer}>Start</button>
+      <button onClick={stopTimer}>Stop</button>
+    </div>
+  );
+}
+
+```
+
+### 2. Counting Renders (Analytics)
+
+Imagine you want to track how many times a component has rendered for performance analytics. If you used state to count the renders, updating the state would trigger *another* re-render, creating an infinite loop!
+
+```tsx
+function HeavyComponent() {
+  const renderCount = useRef(0);
+  
+  // Every time React runs this function, we increment the ref silently
+  renderCount.current += 1; 
+  
+  console.log(`This component has rendered ${renderCount.current} times`);
+  return <div>My Complex UI</div>;
+}
+
+```
+
+### 3. Storing "Previous" State
+
+Because refs don't trigger re-renders, you can use them to remember what a piece of state *used* to be before the current update.
+
+```tsx
+const [value, setValue] = useState("");
+const prevValue = useRef("");
+
+useEffect(() => {
+  // This runs AFTER the UI updates. We store the current value 
+  // into the ref, so on the NEXT render, it acts as the "previous" value.
+  prevValue.current = value;
+}, [value]);
+
+```
+
 
 ## When *not* to use a ref
 
@@ -198,7 +289,7 @@ This is the kind of pattern `useEffectEvent` (doc 06) replaces in newer React. B
 
 **1. Build the lesson:**
 ```
-In src/lessons/06-refs/, build four small examples:
+In src/lessons/07-refs/, build four small examples:
 
 1. ref-dom.tsx: a button that focuses an <input> via a ref. Type the ref
    correctly with HTMLInputElement.

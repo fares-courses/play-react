@@ -206,7 +206,7 @@ For TanStack Query-managed lists, use `setQueryData` instead of `setTasks` and p
 
 **1. Build the lesson:**
 ```
-In src/lessons/20-dnd/, install @dnd-kit/core, @dnd-kit/sortable,
+In src/lessons/23-dnd/, install @dnd-kit/core, @dnd-kit/sortable,
 @dnd-kit/utilities. Build:
 
 1. SortableTodos: a single list of 6 todos that the user can reorder.

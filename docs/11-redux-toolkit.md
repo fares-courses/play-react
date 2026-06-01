@@ -302,7 +302,7 @@ We won't go deep on RTK Query — TanStack Query is covered in doc 12 and is the
 
 **1. Build the lesson:**
 ```
-In src/lessons/10-redux/, install @reduxjs/toolkit and react-redux.
+In src/lessons/11-redux/, install @reduxjs/toolkit and react-redux.
 Build a todo app with Redux Toolkit:
 
 1. Create a todosSlice with: items (array), filter ("all" | "active" | "completed").

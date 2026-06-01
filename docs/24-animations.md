@@ -177,7 +177,7 @@ If you can't articulate a reason, leave it static. Excessive animation feels gim
 
 **1. Build the lesson:**
 ```
-In src/lessons/21-animations/, install motion. Build five small examples:
+In src/lessons/24-animations/, install motion. Build five small examples:
 
 1. anim-css.tsx: a simple expanding card using only CSS transitions. Show
    me the React side (toggle a class/data-attr) is trivial — CSS does all

@@ -215,7 +215,7 @@ The user types, hits submit, sees their comment appear immediately (optimistic),
 
 **1. Build the lesson:**
 ```
-In src/lessons/13-react19/, build four small examples (one file each):
+In src/lessons/16-react19/, build four small examples (one file each):
 
 1. use-promise.tsx: a component that reads a fetched message via use().
    Wrap in Suspense. Add a button that creates a fresh promise and re-renders

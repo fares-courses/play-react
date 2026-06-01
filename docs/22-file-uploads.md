@@ -254,7 +254,7 @@ async function getDimensions(file: File): Promise<{w: number; h: number}> {
 
 **1. Build the lesson:**
 ```
-In src/lessons/19-file-uploads/, build:
+In src/lessons/22-file-uploads/, build:
 
 1. A Dropzone component that accepts drag-drop AND click-to-pick.
    Multiple files. accept="image/*". Validates size <5MB, type JPEG/PNG.

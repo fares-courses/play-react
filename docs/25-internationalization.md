@@ -241,7 +241,7 @@ Keys are part of the codebase. Treat them like API.
 
 **1. Build the lesson:**
 ```
-In src/lessons/22-i18n/, set up i18next with English and Arabic. Build:
+In src/lessons/25-i18n/, set up i18next with English and Arabic. Build:
 
 1. Initialize i18n in i18n/index.ts as in the doc; load via main.tsx.
 2. Two locale files (en.json, ar.json) with these namespaces:

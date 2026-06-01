@@ -335,7 +335,7 @@ onSubmit: async (values, { setFieldError, setStatus }) => {
 
 **1. Build the lesson:**
 ```
-In src/lessons/12-formik/, install formik and yup.
+In src/lessons/13-formik/, install formik and yup.
 Build a user registration form with Formik + Yup:
 
 1. Schema with: name (string, min 2), email (valid email), password

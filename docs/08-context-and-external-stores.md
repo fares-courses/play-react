@@ -176,7 +176,7 @@ If you can put it on a server, it goes in Query. If it's UI/client-only and broa
 
 **1. Build the lesson:**
 ```
-In src/lessons/07-context/, build three examples:
+In src/lessons/08-context/, build three examples:
 
 1. context-theme.tsx: a ThemeContext with light/dark, using the
    "value + setter + custom useTheme hook + throw-if-no-provider" pattern.
